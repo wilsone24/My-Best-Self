@@ -27,7 +27,7 @@ class LoginPage extends StatelessWidget {
               hintStyle: TextStyle(color: Colors.grey[400]),
               border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(7),
-                  borderSide:  const BorderSide(color: Colors.red)),
+                  borderSide: const BorderSide(color: Colors.red)),
               labelText: 'Input Name',
             ),
           ),
