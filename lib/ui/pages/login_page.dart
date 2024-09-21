@@ -9,7 +9,7 @@ class LoginPage extends StatelessWidget {
     return Column(
       children: [
         const SizedBox(
-          height: 300,
+          height: 400,
         ),
         const Text('Enter your name',
             style: TextStyle(
