@@ -7,7 +7,6 @@ class ProfilePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double screenHeight = MediaQuery.of(context).size.height;
     return Column(
       children: [
         SafeArea(
@@ -40,8 +39,7 @@ class ProfilePage extends StatelessWidget {
                     color: Colors.white,
                   ),
                   child: Padding(
-                    padding:
-                        const EdgeInsetsDirectional.only(start: 25, end: 20),
+                    padding: const EdgeInsetsDirectional.only(start: 25,end: 20),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -58,18 +56,12 @@ class ProfilePage extends StatelessWidget {
                                     color: Colors.grey[600], fontSize: 17)),
                           ],
                         ),
-                        const Text(
-                          "100",
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 20,
-                              color: primarycolor),
-                        )
+                        const Text("100", style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 20, color: primarycolor
+                        ),)
                       ],
                     ),
-
-                  ),
-                ),
+                  )),
               Image.asset("assets/profile.png", height: 148, width: 148),
             ],
           ),
