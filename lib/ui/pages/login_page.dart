@@ -33,7 +33,7 @@ class LoginPage extends StatelessWidget {
           ),
         ),
         Padding(
-          padding: const EdgeInsetsDirectional.symmetric(horizontal: 110),
+          padding: const EdgeInsetsDirectional.symmetric(horizontal: 115),
           child: SizedBox(
             width: double.infinity,
             child: FilledButton(
@@ -41,10 +41,10 @@ class LoginPage extends StatelessWidget {
                 style: ButtonStyle(
                     backgroundColor: WidgetStateProperty.all(buttonColor)),
                 child: const Padding(
-                  padding: EdgeInsetsDirectional.symmetric(vertical: 8),
+                  padding: EdgeInsetsDirectional.symmetric(vertical: 9),
                   child: Text(
                     'Login',
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
+                    style: TextStyle(fontSize: 23, fontWeight: FontWeight.w500),
                   ),
                 )),
           ),
