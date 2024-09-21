@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:my_best_self/ui/utils/colors.dart';
+import 'package:my_best_self/ui/widgets/custom_button.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    const buttonColor = Color(0xFF74B7BB);
     return Column(
       children: [
         const SizedBox(
@@ -23,7 +24,7 @@ class LoginPage extends StatelessWidget {
               filled: true,
               fillColor: const Color.fromARGB(255, 242, 241, 241),
               contentPadding: const EdgeInsets.symmetric(horizontal: 10),
-              suffixIcon: const Icon(Icons.login, color: buttonColor),
+              suffixIcon: const Icon(Icons.login, color: primarycolor),
               hintStyle: TextStyle(color: Colors.grey[400]),
               border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(7),
@@ -32,23 +33,7 @@ class LoginPage extends StatelessWidget {
             ),
           ),
         ),
-        Padding(
-          padding: const EdgeInsetsDirectional.symmetric(horizontal: 115),
-          child: SizedBox(
-            width: double.infinity,
-            child: FilledButton(
-                onPressed: () {},
-                style: ButtonStyle(
-                    backgroundColor: WidgetStateProperty.all(buttonColor)),
-                child: const Padding(
-                  padding: EdgeInsetsDirectional.symmetric(vertical: 9),
-                  child: Text(
-                    'Login',
-                    style: TextStyle(fontSize: 23, fontWeight: FontWeight.w500),
-                  ),
-                )),
-          ),
-        ),
+        const CustomButton(text: "Login",),
       ],
     );
   }

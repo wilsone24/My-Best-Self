@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_best_self/ui/pages/login_page.dart';
+import 'package:my_best_self/ui/pages/profile_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -19,7 +20,7 @@ class MyApp extends StatelessWidget {
         ),
         home: const Scaffold(
           backgroundColor: Color(0xFFF9F9F9),
-          body: LoginPage(),
+          body: ProfilePage(),
         ));
   }
 }
