@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:my_best_self/ui/pages/login_page.dart';
+import 'package:my_best_self/ui/navbar/navbar.dart';
+/* import 'package:my_best_self/ui/pages/login_page.dart'; */
+
 
 void main() {
   runApp(const MyApp());

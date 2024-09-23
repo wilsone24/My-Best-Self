@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+
 import 'package:get/get.dart';
 import 'package:my_best_self/ui/controllers/date_controller.dart';
 import 'package:my_best_self/ui/controllers/task_controller.dart';
 import 'package:my_best_self/ui/controllers/user_controller.dart';
 import 'package:my_best_self/ui/pages/login_page.dart';
+import 'package:my_best_self/ui/navbar/navbar.dart';
 import 'package:my_best_self/ui/utils/colors.dart';
 import 'package:my_best_self/ui/widgets/custom_button.dart';
 
@@ -20,13 +22,13 @@ class ProfilePage extends StatelessWidget {
       children: [
         SafeArea(
           child: Container(
-              width: double.infinity,
-              height: 260,
-              decoration: const BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.only(
-                    bottomLeft: Radius.circular(40),
-                    bottomRight: Radius.circular(40)),
+            width: double.infinity,
+            height: 260,
+            decoration: const BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.only(
+                bottomLeft: Radius.circular(40),
+                bottomRight: Radius.circular(40),
               ),
               child: Center(
                   child: Text(
@@ -42,12 +44,42 @@ class ProfilePage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Container(
-                  height: 80,
-                  width: 220,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(15),
-                    color: Colors.white,
+                height: 80,
+                width: 220,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(15),
+                  color: Colors.white,
+                ),
+                child: Padding(
+                  padding: const EdgeInsetsDirectional.only(start: 25, end: 20),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const Text(
+                            "21/09/2024",
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 17),
+                          ),
+                          Text(
+                            "Total points",
+                            style: TextStyle(
+                                color: Colors.grey[600], fontSize: 17),
+                          ),
+                        ],
+                      ),
+                      const Text(
+                        "100",
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20,
+                            color: primarycolor),
+                      )
+                    ],
                   ),
+
                   child: Padding(
                     padding:
                         const EdgeInsetsDirectional.only(start: 25, end: 20),
@@ -77,6 +109,7 @@ class ProfilePage extends StatelessWidget {
                       ],
                     ),
                   )),
+
               Image.asset("assets/profile.png", height: 148, width: 148),
             ],
           ),
