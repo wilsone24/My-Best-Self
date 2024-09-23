@@ -1,10 +1,20 @@
 import 'package:flutter/material.dart';
+
+import 'package:get/get.dart';
+import 'package:my_best_self/ui/controllers/date_controller.dart';
+import 'package:my_best_self/ui/controllers/task_controller.dart';
+import 'package:my_best_self/ui/controllers/user_controller.dart';
+import 'package:my_best_self/ui/pages/login_page.dart';
 import 'package:my_best_self/ui/navbar/navbar.dart';
 import 'package:my_best_self/ui/utils/colors.dart';
 import 'package:my_best_self/ui/widgets/custom_button.dart';
 
 class ProfilePage extends StatelessWidget {
-  const ProfilePage({super.key});
+  final DateController dateController = Get.put(DateController());
+  final TaskController taskController = Get.put(TaskController());
+  final UserController userController = Get.put(UserController());
+
+  ProfilePage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -20,14 +30,12 @@ class ProfilePage extends StatelessWidget {
                 bottomLeft: Radius.circular(40),
                 bottomRight: Radius.circular(40),
               ),
-            ),
-            child: const Center(
-              child: Text(
-                "Hi Wilson!",
-                style: TextStyle(fontSize: 45, fontWeight: FontWeight.w600),
-              ),
-            ),
-          ),
+              child: Center(
+                  child: Text(
+                "Hi ${userController.getUserName()}!",
+                style:
+                    const TextStyle(fontSize: 45, fontWeight: FontWeight.w600),
+              ))),
         ),
         Padding(
           padding: const EdgeInsetsDirectional.only(
@@ -71,13 +79,48 @@ class ProfilePage extends StatelessWidget {
                       )
                     ],
                   ),
-                ),
-              ),
+
+                  child: Padding(
+                    padding:
+                        const EdgeInsetsDirectional.only(start: 25, end: 20),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              dateController.getCurrentDate(),
+                              style: const TextStyle(
+                                  fontWeight: FontWeight.bold, fontSize: 17),
+                            ),
+                            Text("Total points",
+                                style: TextStyle(
+                                    color: Colors.blueGrey[600], fontSize: 17)),
+                          ],
+                        ),
+                        Text(
+                          taskController.getGlobalAverageScore(),
+                          style: const TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20,
+                              color: primarycolor),
+                        )
+                      ],
+                    ),
+                  )),
+
               Image.asset("assets/profile.png", height: 148, width: 148),
             ],
           ),
         ),
-        const SafeArea(child: CustomButton(text: "Logout")),
+        SafeArea(
+            child: CustomButton(
+          text: "Logout",
+          onPressed: () {
+            Get.to(LoginPage());
+          },
+        )),
       ],
     );
   }
