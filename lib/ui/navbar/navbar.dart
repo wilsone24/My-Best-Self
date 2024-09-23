@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:my_best_self/ui/utils/colors.dart';
 
 class CustomBottomNavBar extends StatelessWidget {
   final int selectedIndex;
   final Function(int) onItemTapped;
 
-  const CustomBottomNavBar({
-    super.key,
+  const CustomBottomNavBar({super.key, 
     required this.selectedIndex,
     required this.onItemTapped,
   });
@@ -13,18 +13,16 @@ class CustomBottomNavBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BottomAppBar(
-      child: SizedBox(
-        height: 60,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            _buildNavItem(0, 'Today', Icons.calendar_today),
-            _buildNavItem(1, '', Icons.track_changes),
-            _buildCenterButton(),
-            _buildNavItem(3, '', Icons.bar_chart),
-            _buildNavItem(4, '', Icons.person_outline),
-          ],
-        ),
+      height: 100,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          _buildNavItem(0, 'Today', Icons.calendar_today),
+          _buildNavItem(1, '', Icons.track_changes),
+          _buildCenterButton(),
+          _buildNavItem(3, '', Icons.bar_chart),
+          _buildNavItem(4, '', Icons.person_outline),
+        ],
       ),
     );
   }
@@ -36,17 +34,15 @@ class CustomBottomNavBar extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(
-            icon,
-            color: isSelected ? Colors.purple : Colors.grey,
-          ),
-          Text(
-            label,
-            style: TextStyle(
-              color: isSelected ? Colors.purple : Colors.grey,
-              fontSize: 12,
+          Icon(icon, color: isSelected ? primarycolor : Colors.grey, size: 28),
+          if (label.isNotEmpty)
+            Text(
+              label,
+              style: TextStyle(
+                color: isSelected ? primarycolor : Colors.grey,
+                fontSize: 14,
+              ),
             ),
-          ),
         ],
       ),
     );
@@ -56,17 +52,17 @@ class CustomBottomNavBar extends StatelessWidget {
     return InkWell(
       onTap: () => onItemTapped(2),
       child: Container(
-        width: 48,
-        height: 48,
-        decoration: BoxDecoration(
+        width: 70,
+        height: 70,
+        decoration: const BoxDecoration(
           shape: BoxShape.circle,
           gradient: LinearGradient(
-            colors: [Colors.purple.shade300, Colors.purple.shade100],
+            colors: [primarycolor, primarycolor],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
           ),
         ),
-        child: const Icon(Icons.add, color: Colors.white),
+        child: const Icon(Icons.add, color: Colors.white, size: 50),
       ),
     );
   }
@@ -76,7 +72,6 @@ class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
 
   @override
-  // ignore: library_private_types_in_public_api
   _MyHomePageState createState() => _MyHomePageState();
 }
 
@@ -92,9 +87,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: const Center(
-        child: Text('Page content'),
-      ),
+      body: const Center(child: Text('Page content')),
       bottomNavigationBar: CustomBottomNavBar(
         selectedIndex: _selectedIndex,
         onItemTapped: _onItemTapped,

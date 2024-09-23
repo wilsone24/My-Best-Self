@@ -78,7 +78,6 @@ class ProfilePage extends StatelessWidget {
           ),
         ),
         const SafeArea(child: CustomButton(text: "Logout")),
-        Footer(), // Aquí se agrega el Footer
       ],
     );
   }
