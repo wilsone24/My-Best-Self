@@ -13,20 +13,13 @@ class ProfilePage extends StatelessWidget {
         SafeArea(
           child: Container(
               width: double.infinity,
-              height: screenHeight * 0.28,
-              decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: const BorderRadius.only(
-                      bottomLeft: Radius.circular(40),
-                      bottomRight: Radius.circular(40)),
-                  boxShadow: [
-                    BoxShadow(
-                        color: Colors.grey.withOpacity(0.1),
-                        spreadRadius: 5,
-                        blurRadius: 7,
-                        offset: const Offset(0, 3) // changes
-                        )
-                  ]),
+              height: 260,
+              decoration: const BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(40),
+                    bottomRight: Radius.circular(40)),
+              ),
               child: const Center(
                   child: Text(
                 "Hi Wilson!",
