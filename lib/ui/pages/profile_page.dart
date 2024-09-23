@@ -67,7 +67,9 @@ class ProfilePage extends StatelessWidget {
                         )
                       ],
                     ),
-                  )),
+
+                  )
+                ),
               Image.asset("assets/profile.png", height: 148, width: 148),
             ],
           ),
