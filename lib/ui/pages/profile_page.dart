@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import 'package:my_best_self/ui/controllers/date_controller.dart';
 import 'package:my_best_self/ui/controllers/task_controller.dart';
 import 'package:my_best_self/ui/controllers/user_controller.dart';
-import 'package:my_best_self/ui/pages/login_page.dart';
 import 'package:my_best_self/ui/utils/colors.dart';
 import 'package:my_best_self/ui/widgets/custom_button.dart';
 
@@ -18,7 +17,6 @@ class ProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
-    double screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       body: Column(
         children: [
