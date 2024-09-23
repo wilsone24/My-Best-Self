@@ -5,15 +5,15 @@ class CustomBottomNavBar extends StatelessWidget {
   final Function(int) onItemTapped;
 
   const CustomBottomNavBar({
-    Key? key,
+    super.key,
     required this.selectedIndex,
     required this.onItemTapped,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
     return BottomAppBar(
-      child: Container(
+      child: SizedBox(
         height: 60,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -66,14 +66,17 @@ class CustomBottomNavBar extends StatelessWidget {
             end: Alignment.bottomRight,
           ),
         ),
-        child: Icon(Icons.add, color: Colors.white),
+        child: const Icon(Icons.add, color: Colors.white),
       ),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
+  const MyHomePage({super.key});
+
   @override
+  // ignore: library_private_types_in_public_api
   _MyHomePageState createState() => _MyHomePageState();
 }
 
