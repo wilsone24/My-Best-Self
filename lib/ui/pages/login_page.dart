@@ -5,7 +5,7 @@ import 'package:my_best_self/ui/utils/colors.dart';
 import 'package:my_best_self/ui/widgets/custom_button.dart';
 
 class LoginPage extends StatelessWidget {
-  final UserController userController = Get.put(UserController());
+  final UserController userController = Get.find();
   final TextEditingController textController = TextEditingController();
   final RxString errorMessage = ''.obs;
 

@@ -1,13 +1,9 @@
 import 'package:get/get.dart';
 
 class UserController extends GetxController {
-  var userName = '';
+  final _userName = ''.obs;
 
-  String getUserName() {
-    return userName;
-  }
+  String get userName => _userName.value;
 
-  void setUserName(String name) {
-    userName = name;
-  }
+  void setUserName(String name) => _userName.value = name;
 }

@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:my_best_self/ui/controllers/date_controller.dart';
+import 'package:my_best_self/ui/controllers/task_controller.dart';
+import 'package:my_best_self/ui/controllers/user_controller.dart';
 import 'package:my_best_self/ui/pages/homepage.dart';
 import 'package:my_best_self/ui/pages/login_page.dart';
 import 'package:my_best_self/ui/pages/profile_page.dart';
@@ -8,6 +11,9 @@ import 'package:my_best_self/ui/pages/template_page.dart';
 /* import 'package:my_best_self/ui/pages/login_page.dart'; */
 
 void main() {
+  Get.put(DateController());
+  Get.put(TaskController());
+  Get.put(UserController());
   runApp(const MyApp());
 }
 

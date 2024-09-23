@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:my_best_self/ui/controllers/date_controller.dart';
 import 'package:my_best_self/ui/controllers/task_controller.dart';
 import 'package:my_best_self/ui/controllers/user_controller.dart';
 
 class Homepage extends StatelessWidget {
-  final UserController userController = Get.put(UserController());
-  final DateController dateController = Get.put(DateController());
-  final TaskController taskController = Get.put(TaskController());
+  final UserController userController = Get.find();
+  final TaskController taskController = Get.find();
 
   Homepage({super.key});
 
@@ -21,22 +19,22 @@ class Homepage extends StatelessWidget {
           children: [
             Row(
               children: [
-                Expanded(
+                const Expanded(
                   child: SizedBox(
                     height: 80,
                     child: Text(
-                      dateController.getCurrentDate(),
-                      style: const TextStyle(
-                          fontWeight: FontWeight.bold, fontSize: 17),
+                      "Today",
+                      style:
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 17),
                     ),
                   ),
                 ),
                 Expanded(
                   child: SizedBox(
                     height: 80,
-                    child: Text(
-                      "Hi ${userController.getUserName()}!",
-                      style: const TextStyle(fontSize: 17),
+                    child: Obx(
+                      () => Text("Hi ${userController.userName}!",
+                          style: const TextStyle(fontSize: 17)),
                     ),
                   ),
                 ),

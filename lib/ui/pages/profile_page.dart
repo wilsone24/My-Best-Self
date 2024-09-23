@@ -8,12 +8,11 @@ import 'package:my_best_self/ui/utils/colors.dart';
 import 'package:my_best_self/ui/widgets/custom_button.dart';
 
 class ProfilePage extends StatelessWidget {
-  final DateController dateController = Get.put(DateController());
-  final TaskController taskController = Get.put(TaskController());
-  final UserController userController = Get.put(UserController());
+  final DateController dateController = Get.find();
+  final TaskController taskController = Get.find();
+  final UserController userController = Get.find();
 
   ProfilePage({super.key});
-
   @override
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
@@ -39,10 +38,10 @@ class ProfilePage extends StatelessWidget {
                         )
                   ]),
               child: Center(
-                child: Text(
-                  "Hi ${userController.getUserName()}!",
-                  style: const TextStyle(
-                      fontSize: 45, fontWeight: FontWeight.w600),
+                child: Obx(
+                  () => Text("Hi ${userController.userName}!",
+                      style: const TextStyle(
+                          fontSize: 45, fontWeight: FontWeight.w600)),
                 ),
               ),
             ),
@@ -76,23 +75,24 @@ class ProfilePage extends StatelessWidget {
                         Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text(
-                              dateController.getCurrentDate(),
-                              style: const TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 17),
-                            ),
+                            Obx(() => Text(
+                                  dateController.getCurrentDate(),
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 17),
+                                )),
                             Text("Total points",
                                 style: TextStyle(
                                     color: Colors.blueGrey[600], fontSize: 17)),
                           ],
                         ),
-                        Text(
-                          taskController.getGlobalAverageScore(),
-                          style: const TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 20,
-                              color: primarycolor),
-                        )
+                        Obx(() => Text(
+                              taskController.getGlobalAverageScore(),
+                              style: const TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 20,
+                                  color: primarycolor),
+                            ))
                       ],
                     ),
                   ),

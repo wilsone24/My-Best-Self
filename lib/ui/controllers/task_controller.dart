@@ -33,8 +33,11 @@ class Task {
 }
 
 class TaskController extends GetxController {
-  var taskList = <Task>[].obs;
-  var taskScores = <TaskScore>[].obs;
+  final _taskList = <Task>[].obs;
+  final _taskScores = <TaskScore>[].obs;
+
+  List<Task> get taskList => _taskList;
+  List<TaskScore> get taskScores => _taskScores;
 
   void createTask(
       String name, DateTime startDate, bool? isDone, int? count, int? goal) {
@@ -46,12 +49,12 @@ class TaskController extends GetxController {
       lastActivityDate: null,
       goal: goal ?? 0,
     );
-    taskList.add(task);
+    _taskList.add(task);
   }
 
   void updateTaskStatus(int index, DateTime lastActivityDate,
       {bool? isDone, int? count, int? goal}) {
-    final task = taskList[index];
+    final task = _taskList[index];
     if (isDone != null) {
       task.isDone = isDone;
       task.score = isDone ? 10 : 0;
@@ -60,9 +63,9 @@ class TaskController extends GetxController {
       task.score = (count >= goal!) ? 10 : 0;
     }
     task.lastActivityDate = lastActivityDate;
-    taskList[index] = task;
+    _taskList[index] = task;
 
-    taskScores.add(TaskScore(
+    _taskScores.add(TaskScore(
       taskName: task.name,
       date: task.lastActivityDate!,
       score: task.score,
@@ -70,12 +73,12 @@ class TaskController extends GetxController {
   }
 
   void deleteTask(int index) {
-    taskList.removeAt(index);
+    _taskList.removeAt(index);
   }
 
   String getAverageScoreForTask(String taskName) {
     var scoresForTask =
-        taskScores.where((score) => score.taskName == taskName).toList();
+        _taskScores.where((score) => score.taskName == taskName).toList();
     if (scoresForTask.isEmpty) return "0.00";
     double average = scoresForTask.map((e) => e.score).reduce((a, b) => a + b) /
         scoresForTask.length;
@@ -84,7 +87,7 @@ class TaskController extends GetxController {
 
   String getAverageScoreForDate(DateTime date) {
     var scoresForDate =
-        taskScores.where((score) => isSameDay(score.date, date)).toList();
+        _taskScores.where((score) => isSameDay(score.date, date)).toList();
     if (scoresForDate.isEmpty) return "0.00";
     double average = scoresForDate.map((e) => e.score).reduce((a, b) => a + b) /
         scoresForDate.length;
@@ -92,9 +95,9 @@ class TaskController extends GetxController {
   }
 
   String getGlobalAverageScore() {
-    if (taskScores.isEmpty) return "0.00";
-    double average = taskScores.map((e) => e.score).reduce((a, b) => a + b) /
-        taskScores.length;
+    if (_taskScores.isEmpty) return "0.00";
+    double average = _taskScores.map((e) => e.score).reduce((a, b) => a + b) /
+        _taskScores.length;
     return average.toStringAsFixed(2);
   }
 
@@ -104,3 +107,4 @@ class TaskController extends GetxController {
         date1.day == date2.day;
   }
 }
+
