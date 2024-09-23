@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:my_best_self/ui/controllers/user_controller.dart';
 import 'package:my_best_self/ui/pages/homepage.dart';
-import 'package:my_best_self/ui/pages/profile_page.dart';
 import 'package:my_best_self/ui/utils/colors.dart';
 import 'package:my_best_self/ui/widgets/custom_button.dart';
 
@@ -61,8 +60,7 @@ class LoginPage extends StatelessWidget {
                     errorMessage.value = '';
                     userController.setUserName(name);
                     userController.setUserName(textController.text);
-                    Get.to(Homepage());
-                    // Get.to(ProfilePage());
+                    Get.toNamed('/profilepage/');
                   }
                 }),
           ],
