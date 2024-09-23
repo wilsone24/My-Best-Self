@@ -17,26 +17,33 @@ class ProfilePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double screenHeight = MediaQuery.of(context).size.height;
+    double screenWidth = MediaQuery.of(context).size.width;
     return Column(
       children: [
         SafeArea(
           child: Container(
             width: double.infinity,
-            height: 260,
-            decoration: const BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.only(
-                bottomLeft: Radius.circular(40),
-                bottomRight: Radius.circular(40),
-              ),
-            ),
+            height: screenHeight * 0.27,
+            decoration:  BoxDecoration(
+                color: Colors.white,
+                borderRadius: const BorderRadius.only(
+                  bottomLeft: Radius.circular(40),
+                  bottomRight: Radius.circular(40),
+                ),
+                boxShadow: [
+                  BoxShadow(
+                      color: Colors.grey.withOpacity(0.1),
+                      spreadRadius: 5,
+                      blurRadius: 7,
+                      offset: const Offset(0, 3) // changes
+                      )
+                ]),
             child: Center(
               child: Text(
                 "Hi ${userController.getUserName()}!",
-                style: const TextStyle(
-                  fontSize: 45, 
-                  fontWeight: FontWeight.w600
-                ),
+                style:
+                    const TextStyle(fontSize: 45, fontWeight: FontWeight.w600),
               ),
             ),
           ),
@@ -53,6 +60,14 @@ class ProfilePage extends StatelessWidget {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(15),
                   color: Colors.white,
+                  boxShadow: [
+                  BoxShadow(
+                      color: Colors.grey.withOpacity(0.1),
+                      spreadRadius: 5,
+                      blurRadius: 7,
+                      offset: const Offset(0, 3) // changes
+                      )
+                ]
                 ),
                 child: Padding(
                   padding: const EdgeInsetsDirectional.only(start: 25, end: 20),
