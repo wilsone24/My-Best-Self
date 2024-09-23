@@ -5,7 +5,6 @@ import 'package:my_best_self/ui/controllers/date_controller.dart';
 import 'package:my_best_self/ui/controllers/task_controller.dart';
 import 'package:my_best_self/ui/controllers/user_controller.dart';
 import 'package:my_best_self/ui/pages/login_page.dart';
-import 'package:my_best_self/ui/navbar/navbar.dart';
 import 'package:my_best_self/ui/utils/colors.dart';
 import 'package:my_best_self/ui/widgets/custom_button.dart';
 
@@ -30,12 +29,17 @@ class ProfilePage extends StatelessWidget {
                 bottomLeft: Radius.circular(40),
                 bottomRight: Radius.circular(40),
               ),
-              child: Center(
-                  child: Text(
+            ),
+            child: Center(
+              child: Text(
                 "Hi ${userController.getUserName()}!",
-                style:
-                    const TextStyle(fontSize: 45, fontWeight: FontWeight.w600),
-              ))),
+                style: const TextStyle(
+                  fontSize: 45, 
+                  fontWeight: FontWeight.w600
+                ),
+              ),
+            ),
+          ),
         ),
         Padding(
           padding: const EdgeInsetsDirectional.only(
@@ -58,69 +62,39 @@ class ProfilePage extends StatelessWidget {
                       Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          const Text(
-                            "21/09/2024",
-                            style: TextStyle(
+                          Text(
+                            dateController.getCurrentDate(),
+                            style: const TextStyle(
                                 fontWeight: FontWeight.bold, fontSize: 17),
                           ),
-                          Text(
-                            "Total points",
-                            style: TextStyle(
-                                color: Colors.grey[600], fontSize: 17),
-                          ),
+                          Text("Total points",
+                              style: TextStyle(
+                                  color: Colors.blueGrey[600], fontSize: 17)),
                         ],
                       ),
-                      const Text(
-                        "100",
-                        style: TextStyle(
+                      Text(
+                        taskController.getGlobalAverageScore(),
+                        style: const TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 20,
                             color: primarycolor),
                       )
                     ],
                   ),
-
-                  child: Padding(
-                    padding:
-                        const EdgeInsetsDirectional.only(start: 25, end: 20),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              dateController.getCurrentDate(),
-                              style: const TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 17),
-                            ),
-                            Text("Total points",
-                                style: TextStyle(
-                                    color: Colors.blueGrey[600], fontSize: 17)),
-                          ],
-                        ),
-                        Text(
-                          taskController.getGlobalAverageScore(),
-                          style: const TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 20,
-                              color: primarycolor),
-                        )
-                      ],
-                    ),
-                  )),
-
+                ),
+              ),
               Image.asset("assets/profile.png", height: 148, width: 148),
             ],
           ),
         ),
         SafeArea(
-            child: CustomButton(
-          text: "Logout",
-          onPressed: () {
-            Get.to(LoginPage());
-          },
-        )),
+          child: CustomButton(
+            text: "Logout",
+            onPressed: () {
+              Get.to(LoginPage());
+            },
+          ),
+        ),
       ],
     );
   }
