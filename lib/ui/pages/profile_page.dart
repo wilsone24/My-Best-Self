@@ -7,18 +7,26 @@ class ProfilePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double screenHeight = MediaQuery.of(context).size.height;
     return Column(
       children: [
         SafeArea(
           child: Container(
               width: double.infinity,
-              height: 260,
-              decoration: const BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.only(
-                    bottomLeft: Radius.circular(40),
-                    bottomRight: Radius.circular(40)),
-              ),
+              height: screenHeight * 0.28,
+              decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: const BorderRadius.only(
+                      bottomLeft: Radius.circular(40),
+                      bottomRight: Radius.circular(40)),
+                  boxShadow: [
+                    BoxShadow(
+                        color: Colors.grey.withOpacity(0.1),
+                        spreadRadius: 5,
+                        blurRadius: 7,
+                        offset: const Offset(0, 3) // changes
+                        )
+                  ]),
               child: const Center(
                   child: Text(
                 "Hi Wilson!",
@@ -35,11 +43,19 @@ class ProfilePage extends StatelessWidget {
                   height: 80,
                   width: 220,
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(15),
-                    color: Colors.white,
-                  ),
+                      borderRadius: BorderRadius.circular(15),
+                      color: Colors.white,
+                      boxShadow: [
+                        BoxShadow(
+                            color: Colors.grey.withOpacity(0.1),
+                            spreadRadius: 5,
+                            blurRadius: 7,
+                            offset: const Offset(0, 3) // changes
+                            )
+                      ]),
                   child: Padding(
-                    padding: const EdgeInsetsDirectional.only(start: 25,end: 20),
+                    padding:
+                        const EdgeInsetsDirectional.only(start: 25, end: 20),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -56,9 +72,13 @@ class ProfilePage extends StatelessWidget {
                                     color: Colors.grey[600], fontSize: 17)),
                           ],
                         ),
-                        const Text("100", style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 20, color: primarycolor
-                        ),)
+                        const Text(
+                          "100",
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20,
+                              color: primarycolor),
+                        )
                       ],
                     ),
                   )),
