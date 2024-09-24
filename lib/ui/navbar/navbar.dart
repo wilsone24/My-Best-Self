@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_best_self/ui/utils/colors.dart'; // Asegúrate de importar tus colores
 
 class CustomBottomNavBar extends StatelessWidget {
   final int selectedIndex;
@@ -13,16 +14,18 @@ class CustomBottomNavBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BottomAppBar(
+      color: Colors.white, // Color de fondo del BottomNavBar
+      elevation: 8,
       child: SizedBox(
-        height: 60,
+        height: 70,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            _buildNavItem(0, 'Today', Icons.calendar_today),
-            _buildNavItem(1, '', Icons.track_changes),
+            _buildNavItem(0, 'Home', Icons.home),
+            _buildNavItem(1, 'Profile', Icons.person_outline),
             _buildCenterButton(),
-            _buildNavItem(3, '', Icons.bar_chart),
-            _buildNavItem(4, '', Icons.person_outline),
+            _buildNavItem(3, 'Game', Icons.sports_gymnastics_outlined),
+            _buildNavItem(4, 'Settings', Icons.settings),
           ],
         ),
       ),
@@ -31,73 +34,60 @@ class CustomBottomNavBar extends StatelessWidget {
 
   Widget _buildNavItem(int index, String label, IconData icon) {
     final isSelected = selectedIndex == index;
-    return InkWell(
+    return GestureDetector(
       onTap: () => onItemTapped(index),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Icon(
-            icon,
-            color: isSelected ? Colors.purple : Colors.grey,
-          ),
-          Text(
-            label,
-            style: TextStyle(
-              color: isSelected ? Colors.purple : Colors.grey,
-              fontSize: 12,
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 200),
+        transform: isSelected
+            ? Matrix4.diagonal3Values(1.1, 1.1, 1.0)
+            : Matrix4.identity(),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(
+              icon,
+              color: isSelected ? primarycolor : Colors.grey, // Usa primarycolor
+              size: 28,
             ),
-          ),
-        ],
+            const SizedBox(height: 4),
+            AnimatedDefaultTextStyle(
+              duration: const Duration(milliseconds: 200),
+              style: TextStyle(
+                color: isSelected ? primarycolor : Colors.grey, // Usa primarycolor
+                fontSize: 10,
+                fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+              ),
+              child: Text(label),
+            ),
+          ],
+        ),
       ),
     );
   }
 
   Widget _buildCenterButton() {
-    return InkWell(
+    return GestureDetector(
       onTap: () => onItemTapped(2),
-      child: Container(
-        width: 48,
-        height: 48,
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 200),
+        width: 66,
+        height: 66,
         decoration: BoxDecoration(
           shape: BoxShape.circle,
           gradient: LinearGradient(
-            colors: [Colors.purple.shade300, Colors.purple.shade100],
+            colors: [primarycolor, primarycolor.withOpacity(0.7)], // Usa la paleta de colores
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
           ),
+          boxShadow: const [
+            BoxShadow(
+              color: Colors.black26,
+              blurRadius: 8,
+              offset: Offset(0, 4),
+            ),
+          ],
         ),
-        child: const Icon(Icons.add, color: Colors.white),
-      ),
-    );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key});
-
-  @override
-  // ignore: library_private_types_in_public_api
-  _MyHomePageState createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int _selectedIndex = 0;
-
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: const Center(
-        child: Text('Page content'),
-      ),
-      bottomNavigationBar: CustomBottomNavBar(
-        selectedIndex: _selectedIndex,
-        onItemTapped: _onItemTapped,
+        child: const Icon(Icons.add, color: Colors.white, size: 30),
       ),
     );
   }
