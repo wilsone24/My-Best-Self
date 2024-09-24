@@ -54,7 +54,7 @@ class CustomBottomNavBar extends StatelessWidget {
               duration: const Duration(milliseconds: 200),
               style: TextStyle(
                 color: isSelected ? primarycolor : Colors.grey, // Usa primarycolor
-                fontSize: 10,
+                fontSize: 12,
                 fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
               ),
               child: Text(label),
