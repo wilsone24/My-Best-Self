@@ -4,7 +4,6 @@ import 'package:my_best_self/ui/controllers/date_controller.dart';
 import 'package:my_best_self/ui/controllers/task_controller.dart';
 import 'package:my_best_self/ui/controllers/user_controller.dart';
 import 'package:my_best_self/ui/views/home_screen.dart';
-import 'package:my_best_self/ui/views/profile_screen.dart';
 
 class Mainpage extends StatelessWidget {
   final UserController userController = Get.find();
