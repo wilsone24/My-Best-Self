@@ -59,7 +59,7 @@ class LoginPage extends StatelessWidget {
                     errorMessage.value = '';
                     userController.setUserName(name);
                     userController.setUserName(textController.text);
-                    Get.toNamed('/profilepage/');
+                    Get.toNamed('/homepage/');
                   }
                 }),
           ],
