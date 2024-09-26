@@ -37,12 +37,12 @@ class HomeScreen extends StatelessWidget {
                       offset: const Offset(0, 3) // changes
                       )
                 ]),
-            child: Padding(
-              padding: const EdgeInsetsDirectional.only(start: 25, end: 25),
+            child: const Padding(
+              padding: EdgeInsetsDirectional.only(start: 25, end: 25),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Column(
+                  Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
@@ -61,16 +61,8 @@ class HomeScreen extends StatelessWidget {
                       ),
                     ],
                   ),
-                  IconButton(
-                    icon: Icon(
-                      istrue ? Icons.check_box : Icons.check_box_outline_blank,
-                      color: primarycolor,
-                    ),
-                    onPressed: () {
-                      istrue = !istrue; // Cambia el valor de istrue
-                    },
-                  ),
-                  const Text(
+                  
+                  Text(
                     "Hola",
                     style: TextStyle(
                         fontWeight: FontWeight.bold,
