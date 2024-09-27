@@ -38,7 +38,7 @@ class CustomBottomNavBar extends StatelessWidget {
 
   Widget _buildNavItem(int index, String label, IconData icon) {
     final bool isSelected = selectedIndex == index;
-    final Color color = isSelected ? primarycolor : Colors.grey;
+    final Color color = isSelected ? primaryColor : Colors.grey;
     return GestureDetector(
       onTap: () => onItemTapped(index),
       child: AnimatedContainer(
@@ -85,7 +85,7 @@ class TodayBottomBar extends StatelessWidget {
           height: 10,
           decoration: const BoxDecoration(
             shape: BoxShape.circle,
-            color: primarycolor,
+            color: primaryColor,
           ),
         )
       ],
@@ -115,7 +115,7 @@ class CustomFloatingActionButton extends StatelessWidget {
           height: 70,
           decoration: const BoxDecoration(
             shape: BoxShape.circle,
-            color: primarycolor, // Fondo del botón
+            color: primaryColor, // Fondo del botón
           ),
           child: const Icon(Icons.add, color: Colors.white, size: 40), // Ícono
         ),

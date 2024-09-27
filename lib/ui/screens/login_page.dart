@@ -33,7 +33,7 @@ class LoginPage extends StatelessWidget {
                   filled: true,
                   fillColor: const Color.fromARGB(255, 242, 241, 241),
                   contentPadding: const EdgeInsets.symmetric(horizontal: 10),
-                  suffixIcon: const Icon(Icons.login, color: primarycolor),
+                  suffixIcon: const Icon(Icons.login, color: primaryColor),
                   hintStyle: TextStyle(color: Colors.grey[400]),
                   border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(7),

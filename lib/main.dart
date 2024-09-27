@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:my_best_self/ui/controllers/date_controller.dart';
-import 'package:my_best_self/ui/controllers/task_controller.dart';
+import 'package:my_best_self/ui/controllers/todo_controller.dart';
 import 'package:my_best_self/ui/controllers/user_controller.dart';
 import 'package:my_best_self/ui/screens/main_page.dart';
 import 'package:my_best_self/ui/screens/login_page.dart';
@@ -11,7 +11,7 @@ import 'package:my_best_self/ui/utils/colors.dart';
 
 void main() {
   Get.put(DateController());
-  Get.put(TaskController());
+  Get.put(TodoController());
   Get.put(UserController());
   runApp(const MyApp());
 }
@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
       title: 'My Best Self',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: bodycolor),
+        colorScheme: ColorScheme.fromSeed(seedColor: bodyColor),
         useMaterial3: true,
       ),
       initialRoute: '/loginpage',

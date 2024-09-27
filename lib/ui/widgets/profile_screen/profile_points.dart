@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:my_best_self/ui/controllers/date_controller.dart';
-import 'package:my_best_self/ui/controllers/task_controller.dart';
+import 'package:my_best_self/ui/controllers/todo_controller.dart';
 import 'package:my_best_self/ui/utils/colors.dart';
 
 class ProfilePoints extends StatelessWidget {
@@ -10,13 +10,13 @@ class ProfilePoints extends StatelessWidget {
     required this.screenHeight,
     required this.screenWidght,
     required this.dateController,
-    required this.taskController,
+    required this.todoController,
   });
 
   final double screenHeight;
   final double screenWidght;
   final DateController dateController;
-  final TaskController taskController;
+  final TodoController todoController;
 
   @override
   Widget build(BuildContext context) {
@@ -48,16 +48,16 @@ class ProfilePoints extends StatelessWidget {
                           fontWeight: FontWeight.bold, fontSize: 17),
                     )),
                 Text("Total points",
-                    style: TextStyle(
-                        color: Colors.blueGrey[600], fontSize: 17)),
+                    style:
+                        TextStyle(color: Colors.blueGrey[600], fontSize: 17)),
               ],
             ),
             Obx(() => Text(
-                  taskController.getGlobalAverageScore(),
+                  "${todoController.calculateCompletedPoints()}",
                   style: const TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 20,
-                      color: primarycolor),
+                      color: primaryColor),
                 ))
           ],
         ),

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:my_best_self/ui/controllers/date_controller.dart';
-import 'package:my_best_self/ui/controllers/task_controller.dart';
+import 'package:my_best_self/ui/controllers/todo_controller.dart';
 import 'package:my_best_self/ui/controllers/user_controller.dart';
 import 'package:my_best_self/ui/widgets/custom_button.dart';
 import 'package:my_best_self/ui/widgets/profile_screen/profile_header.dart';
@@ -10,7 +10,7 @@ import 'package:my_best_self/ui/widgets/profile_screen/profile_points.dart';
 
 class ProfileScreen extends StatelessWidget {
   final DateController dateController = Get.find();
-  final TaskController taskController = Get.find();
+  final TodoController todoController = Get.find();
   final UserController userController = Get.find();
 
   ProfileScreen({super.key});
@@ -35,7 +35,7 @@ class ProfileScreen extends StatelessWidget {
                   screenHeight: screenHeight,
                   screenWidght: screenWidght,
                   dateController: dateController,
-                  taskController: taskController),
+                  todoController: todoController),
               ProfilePhoto(
                   screenHeight: screenHeight, screenWidght: screenWidght),
             ],
