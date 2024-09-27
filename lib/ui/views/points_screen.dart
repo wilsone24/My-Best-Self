@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_best_self/ui/utils/colors.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 
@@ -21,8 +22,8 @@ class GameScreen extends StatelessWidget {
               radius: 200,
               lineWidth: 40,
               percent: points/necessaryPoints,
-              progressColor: primarycolor,
-              backgroundColor: primarycolor.withOpacity(0.2),
+              progressColor: primaryColor,
+              backgroundColor: primaryColor.withOpacity(0.2),
               circularStrokeCap: CircularStrokeCap.round,
               center:  Text(
                 "${((points / necessaryPoints)*100).toStringAsFixed(0)}%",
@@ -34,8 +35,8 @@ class GameScreen extends StatelessWidget {
               animationDuration: 1000,
               lineHeight: 40,
               percent: points/necessaryPoints,
-              progressColor: primarycolor,
-              backgroundColor: primarycolor.withOpacity(0.2),
+              progressColor: primaryColor,
+              backgroundColor: primaryColor.withOpacity(0.2),
               barRadius: const Radius.circular(50),
             )
           ],
