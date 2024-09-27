@@ -24,11 +24,12 @@ class CustomBottomNavBar extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            _buildNavItem(0, 'Home', Icons.home),
-            _buildNavItem(1, 'Game', Icons.sports_gymnastics_outlined),
-            const SizedBox(width: 66), // Espacio para el botón central
+            const TodayBottomBar(),
+            _buildNavItem(0, 'Home', Icons.task_alt_rounded),
+            const SizedBox(width: 66),
+            _buildNavItem(1, 'Points', Icons.bar_chart_rounded),
             _buildNavItem(2, 'Profile', Icons.person_outline),
-            _buildNavItem(3, 'Settings', Icons.settings),
+            
           ],
         ),
       ),
@@ -42,7 +43,8 @@ class CustomBottomNavBar extends StatelessWidget {
       onTap: () => onItemTapped(index),
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 300),
-        transform: Matrix4.diagonal3Values(isSelected ? 1.2 : 1.0, isSelected ? 1.2 : 1.0, 1.0),
+        transform: Matrix4.diagonal3Values(
+            isSelected ? 1.2 : 1.0, isSelected ? 1.2 : 1.0, 1.0),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -64,6 +66,33 @@ class CustomBottomNavBar extends StatelessWidget {
   }
 }
 
+class TodayBottomBar extends StatelessWidget {
+  const TodayBottomBar({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        const Text(
+          "Today",
+          style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
+        ),
+        Container(
+          width: 10,
+          height: 10,
+          decoration: const BoxDecoration(
+            shape: BoxShape.circle,
+            color: primarycolor,
+          ),
+        )
+      ],
+    );
+  }
+}
+
 class CustomFloatingActionButton extends StatelessWidget {
   final VoidCallback onPressed;
 
@@ -72,9 +101,10 @@ class CustomFloatingActionButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 76,
-      width: 76,
-      margin: const EdgeInsets.only(top: 30), // Alineación con la barra de navegación
+      height: 70,
+      width: 70,
+      margin: const EdgeInsets.only(
+          top: 30), // Alineación con la barra de navegación
       child: FloatingActionButton(
         onPressed: onPressed,
         elevation: 8,
