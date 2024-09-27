@@ -24,9 +24,9 @@ class CustomBottomNavBar extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             _buildNavItem(0, 'Home', Icons.home),
-            _buildNavItem(1, 'Profile', Icons.person_outline),
+            _buildNavItem(1, 'Game', Icons.sports_gymnastics_outlined),
             const SizedBox(width: 66), // Espacio para el botón central
-            _buildNavItem(2, 'Game', Icons.sports_gymnastics_outlined),
+            _buildNavItem(2, 'Profile', Icons.person_outline),
             _buildNavItem(3, 'Settings', Icons.settings),
           ],
         ),

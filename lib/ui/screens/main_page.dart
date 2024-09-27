@@ -17,9 +17,8 @@ class _MainpageState extends State<Mainpage> {
   static final List<Widget> _widgetOptions = <Widget>[
     HomeScreen(),
     const GameScreen(),
-    const Placeholder(), // Placeholder for the center button action
     ProfileScreen(),
-    const Placeholder(), // Placeholder for Settings screen
+    const Placeholder(),
   ];
 
   void _onItemTapped(int index) {
