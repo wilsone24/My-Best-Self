@@ -1,21 +1,45 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:my_best_self/ui/controllers/date_controller.dart';
-import 'package:my_best_self/ui/controllers/task_controller.dart';
-import 'package:my_best_self/ui/controllers/user_controller.dart';
+import 'package:my_best_self/ui/navbar/navbar.dart';
+import 'package:my_best_self/ui/views/game_screen.dart';
+import 'package:my_best_self/ui/views/home_screen.dart';
 import 'package:my_best_self/ui/views/profile_screen.dart';
 
-class Mainpage extends StatelessWidget {
-  final UserController userController = Get.find();
-  final TaskController taskController = Get.find();
-  final DateController dateController = Get.find();
+class Mainpage extends StatefulWidget {
+  const Mainpage({super.key});
 
-  Mainpage({super.key});
+  @override
+  // ignore: library_private_types_in_public_api
+  _MainpageState createState() => _MainpageState();
+}
+
+class _MainpageState extends State<Mainpage> {
+  int _selectedIndex = 0;
+  static final List<Widget> _widgetOptions = <Widget>[
+    HomeScreen(),
+    const GameScreen(),
+    const Placeholder(), // Placeholder for the center button action
+    ProfileScreen(),
+    const Placeholder(), // Placeholder for Settings screen
+  ];
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: ProfileScreen(),
+      body: _widgetOptions[_selectedIndex],
+      bottomNavigationBar: CustomBottomNavBar(
+        selectedIndex: _selectedIndex,
+        onItemTapped: _onItemTapped,
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButton: CustomFloatingActionButton(
+        onPressed: () => _onItemTapped(2), // Action for the center button
+      ),
     );
   }
 }

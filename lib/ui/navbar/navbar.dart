@@ -5,7 +5,8 @@ class CustomBottomNavBar extends StatelessWidget {
   final int selectedIndex;
   final Function(int) onItemTapped;
 
-  const CustomBottomNavBar({super.key, 
+  const CustomBottomNavBar({
+    super.key,
     required this.selectedIndex,
     required this.onItemTapped,
   });
@@ -13,56 +14,80 @@ class CustomBottomNavBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BottomAppBar(
-      height: 100,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
-          _buildNavItem(0, 'Today', Icons.calendar_today),
-          _buildNavItem(1, '', Icons.track_changes),
-          _buildCenterButton(),
-          _buildNavItem(3, '', Icons.bar_chart),
-          _buildNavItem(4, '', Icons.person_outline),
-        ],
+      shape: const CircularNotchedRectangle(),
+      notchMargin: 8,
+      color: Colors.white,
+      elevation: 8,
+      child: SizedBox(
+        height: 70,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            _buildNavItem(0, 'Home', Icons.home),
+            _buildNavItem(1, 'Profile', Icons.person_outline),
+            const SizedBox(width: 66), // Espacio para el botón central
+            _buildNavItem(2, 'Game', Icons.sports_gymnastics_outlined),
+            _buildNavItem(3, 'Settings', Icons.settings),
+          ],
+        ),
       ),
     );
   }
 
   Widget _buildNavItem(int index, String label, IconData icon) {
-    final isSelected = selectedIndex == index;
-    return InkWell(
+    final bool isSelected = selectedIndex == index;
+    final Color color = isSelected ? primarycolor : Colors.grey;
+    return GestureDetector(
       onTap: () => onItemTapped(index),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Icon(icon, color: isSelected ? primarycolor : Colors.grey, size: 28),
-          if (label.isNotEmpty)
-            Text(
-              label,
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 300),
+        transform: Matrix4.diagonal3Values(isSelected ? 1.2 : 1.0, isSelected ? 1.2 : 1.0, 1.0),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(icon, color: color, size: 28),
+            const SizedBox(height: 4),
+            AnimatedDefaultTextStyle(
+              duration: const Duration(milliseconds: 300),
               style: TextStyle(
-                color: isSelected ? primarycolor : Colors.grey,
-                fontSize: 14,
+                color: color,
+                fontSize: 12,
+                fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
               ),
+              child: Text(label),
             ),
-        ],
+          ],
+        ),
       ),
     );
   }
+}
 
-  Widget _buildCenterButton() {
-    return InkWell(
-      onTap: () => onItemTapped(2),
-      child: Container(
-        width: 70,
-        height: 70,
-        decoration: const BoxDecoration(
-          shape: BoxShape.circle,
-          gradient: LinearGradient(
-            colors: [primarycolor, primarycolor],
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
+class CustomFloatingActionButton extends StatelessWidget {
+  final VoidCallback onPressed;
+
+  const CustomFloatingActionButton({super.key, required this.onPressed});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 66,
+      width: 66,
+      margin: const EdgeInsets.only(top: 30), // Alineación con la barra de navegación
+      child: FloatingActionButton(
+        onPressed: onPressed,
+        elevation: 8,
+        backgroundColor: Colors.transparent, // Fondo transparente
+        shape: const CircleBorder(),
+        child: Container(
+          width: 60,
+          height: 60,
+          decoration: const BoxDecoration(
+            shape: BoxShape.circle,
+            color: primarycolor, // Fondo del botón
           ),
+          child: const Icon(Icons.add, color: Colors.white, size: 30), // Ícono
         ),
-        child: const Icon(Icons.add, color: Colors.white, size: 50),
       ),
     );
   }
@@ -72,6 +97,7 @@ class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
 
   @override
+  // ignore: library_private_types_in_public_api
   _MyHomePageState createState() => _MyHomePageState();
 }
 
@@ -87,11 +113,17 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: const Center(child: Text('Page content')),
+      body: Center(
+        child: Text('Page content for index $_selectedIndex'),
+      ),
       bottomNavigationBar: CustomBottomNavBar(
         selectedIndex: _selectedIndex,
         onItemTapped: _onItemTapped,
       ),
+      floatingActionButton: CustomFloatingActionButton(
+        onPressed: () => _onItemTapped(4),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }
 }
