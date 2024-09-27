@@ -14,6 +14,7 @@ class CustomBottomNavBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BottomAppBar(
+      height: 100,
       shape: const CircularNotchedRectangle(),
       notchMargin: 8,
       color: Colors.white,
@@ -45,13 +46,13 @@ class CustomBottomNavBar extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Icon(icon, color: color, size: 28),
+            Icon(icon, color: color, size: 30),
             const SizedBox(height: 4),
             AnimatedDefaultTextStyle(
               duration: const Duration(milliseconds: 300),
               style: TextStyle(
                 color: color,
-                fontSize: 12,
+                fontSize: 14,
                 fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
               ),
               child: Text(label),
@@ -71,8 +72,8 @@ class CustomFloatingActionButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 66,
-      width: 66,
+      height: 76,
+      width: 76,
       margin: const EdgeInsets.only(top: 30), // Alineación con la barra de navegación
       child: FloatingActionButton(
         onPressed: onPressed,
@@ -80,13 +81,13 @@ class CustomFloatingActionButton extends StatelessWidget {
         backgroundColor: Colors.transparent, // Fondo transparente
         shape: const CircleBorder(),
         child: Container(
-          width: 60,
-          height: 60,
+          width: 70,
+          height: 70,
           decoration: const BoxDecoration(
             shape: BoxShape.circle,
             color: primarycolor, // Fondo del botón
           ),
-          child: const Icon(Icons.add, color: Colors.white, size: 30), // Ícono
+          child: const Icon(Icons.add, color: Colors.white, size: 40), // Ícono
         ),
       ),
     );
