@@ -16,7 +16,7 @@ class Task {
   String name;
   bool? isDone;
   int? count;
-  DateTime startDate;
+  DateTime? startDate;
   DateTime? lastActivityDate;
   int? goal;
   int score;
@@ -25,7 +25,7 @@ class Task {
     required this.name,
     this.isDone,
     this.count,
-    required this.startDate,
+    this.startDate,
     this.lastActivityDate,
     this.goal,
     this.score = 0,
@@ -33,7 +33,7 @@ class Task {
 }
 
 class TaskController extends GetxController {
-  final _taskList = <Task>[].obs;
+  final _taskList = <Task>[Task(name: "Wilson" , count: 3,goal: 6, isDone: false, score: 100)].obs;
   final _taskScores = <TaskScore>[].obs;
 
   List<Task> get taskList => _taskList;

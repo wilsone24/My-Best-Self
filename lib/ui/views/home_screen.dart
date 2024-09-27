@@ -15,7 +15,6 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    bool istrue = false;
     double screenHeight = MediaQuery.of(context).size.height;
     double screenWidght = MediaQuery.of(context).size.width;
     return Column(
