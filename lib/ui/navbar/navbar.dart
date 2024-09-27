@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:my_best_self/ui/utils/colors.dart';
 
 class CustomBottomNavBar extends StatelessWidget {
@@ -29,7 +30,6 @@ class CustomBottomNavBar extends StatelessWidget {
             const SizedBox(width: 66),
             _buildNavItem(1, 'Points', Icons.bar_chart_rounded),
             _buildNavItem(2, 'Profile', Icons.person_outline),
-            
           ],
         ),
       ),
@@ -152,7 +152,7 @@ class _MyHomePageState extends State<MyHomePage> {
         onItemTapped: _onItemTapped,
       ),
       floatingActionButton: CustomFloatingActionButton(
-        onPressed: () => _onItemTapped(4),
+        onPressed: () => Get.toNamed('/taskpage/'),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );

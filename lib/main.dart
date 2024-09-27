@@ -3,11 +3,11 @@ import 'package:get/get.dart';
 import 'package:my_best_self/ui/controllers/date_controller.dart';
 import 'package:my_best_self/ui/controllers/todo_controller.dart';
 import 'package:my_best_self/ui/controllers/user_controller.dart';
+import 'package:my_best_self/ui/screens/bool_task_page.dart';
 import 'package:my_best_self/ui/screens/main_page.dart';
 import 'package:my_best_self/ui/screens/login_page.dart';
+import 'package:my_best_self/ui/screens/quan_task_page.dart';
 import 'package:my_best_self/ui/utils/colors.dart';
-
-/* import 'package:my_best_self/ui/pages/login_page.dart'; */
 
 void main() {
   Get.put(DateController());
@@ -32,6 +32,8 @@ class MyApp extends StatelessWidget {
       getPages: [
         GetPage(name: '/loginpage', page: () => LoginPage()),
         GetPage(name: '/mainpage', page: () => const Mainpage()),
+        GetPage(name: '/booltaskpage', page: () => BoolTaskPage()),
+        GetPage(name: '/quantaskpage', page: () => QuanTaskPage()),
       ],
     );
   }
