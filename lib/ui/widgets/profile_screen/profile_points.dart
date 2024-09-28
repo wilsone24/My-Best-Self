@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:my_best_self/ui/controllers/date_controller.dart';
 import 'package:my_best_self/ui/controllers/date_task_controller.dart';
-import 'package:my_best_self/ui/controllers/todo_controller.dart';
 import 'package:my_best_self/ui/utils/colors.dart';
 
 class ProfilePoints extends StatelessWidget {

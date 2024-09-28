@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:my_best_self/models/task.dart';
-import 'package:my_best_self/ui/controllers/todo_controller.dart';
+import 'package:my_best_self/ui/controllers/date_task_controller.dart';
 import 'package:my_best_self/ui/widgets/custom_button.dart';
 
 class BoolTaskPage extends StatelessWidget {
   BoolTaskPage({super.key});
   final TextEditingController taskNameController = TextEditingController();
   final TextEditingController taskNameGoalController = TextEditingController();
-  final TodoController todoController = Get.find();
+  final DateTaskController controller = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +15,7 @@ class BoolTaskPage extends StatelessWidget {
     return Scaffold(
       body: Column(
         children: [
-           SizedBox(
+          SizedBox(
             height: screenHeight * 0.4,
           ),
           Center(
@@ -55,16 +54,12 @@ class BoolTaskPage extends StatelessWidget {
                     String taskName = taskNameController.text.trim();
                     String goal = "1";
                     String nameGoal = taskNameGoalController.text.trim();
-          
+
                     if (taskName.isNotEmpty &&
                         goal.isNotEmpty &&
                         nameGoal.isNotEmpty) {
-                      Task newTask = Task(
-                        name: taskName,
-                        goal: int.tryParse(goal) ?? 0,
-                        nameGoal: nameGoal,
-                      );
-                      todoController.addTodo(newTask);
+                      controller.addTaskForSelectedDay(
+                          taskName, goal, nameGoal);
                       taskNameController.clear();
                       taskNameGoalController.clear();
                       Get.toNamed('/mainpage/');

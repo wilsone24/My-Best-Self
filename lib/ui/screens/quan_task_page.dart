@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:my_best_self/models/task.dart';
 import 'package:my_best_self/ui/controllers/date_task_controller.dart';
-import 'package:my_best_self/ui/controllers/todo_controller.dart';
 import 'package:my_best_self/ui/widgets/custom_button.dart';
 
 class QuanTaskPage extends StatelessWidget {
@@ -72,7 +70,8 @@ class QuanTaskPage extends StatelessWidget {
                     if (taskName.isNotEmpty &&
                         goal.isNotEmpty &&
                         nameGoal.isNotEmpty) {
-                      controller.addTaskForSelectedDay(taskName, goal, nameGoal);
+                      controller.addTaskForSelectedDay(
+                          taskName, goal, nameGoal);
                       taskNameController.clear();
                       taskGoalController.clear();
                       taskNameGoalController.clear();

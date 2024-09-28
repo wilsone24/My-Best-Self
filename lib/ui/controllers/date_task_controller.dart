@@ -94,7 +94,6 @@ class DateTaskController extends GetxController {
         }
       }
     }
-    tasksByDayAndMonth.refresh();
     return points;
   }
 }
