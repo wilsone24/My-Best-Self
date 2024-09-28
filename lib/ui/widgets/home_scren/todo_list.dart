@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:my_best_self/models/task.dart';
-import 'package:my_best_self/ui/controllers/todo_controller.dart';
+import 'package:my_best_self/ui/controllers/date_task_controller.dart';
 import 'package:my_best_self/ui/utils/colors.dart'; // Asegúrate de importar GetX
 
 class TodoList extends StatelessWidget {
@@ -16,7 +16,7 @@ class TodoList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final TodoController todoController = Get.find();
+    final DateTaskController datetaskcontroller = Get.find();
 
     return Padding(
       padding: const EdgeInsets.only(
@@ -32,11 +32,20 @@ class TodoList extends StatelessWidget {
           duration: const Duration(
               milliseconds: 500), // Animación para cambio de color
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(15),
-            color: task.isCompleted.value
-                ? const Color.fromARGB(255, 243, 243, 243) // Color cuando la tarea está completa
-                : Colors.white // Color cuando la tarea no está completa
-          ),
+              borderRadius: BorderRadius.circular(15),
+              color: task.isCompleted.value
+                  ? const Color.fromARGB(
+                      255, 243, 243, 243) // Color cuando la tarea está completa
+                  : Colors.white,
+              boxShadow: [
+                BoxShadow(
+                    color: Colors.grey.withOpacity(0.1),
+                    spreadRadius: 5,
+                    blurRadius: 7,
+                    offset: const Offset(0, 3) // cambios
+                    )
+              ] // Color cuando la tarea no está completa
+              ),
           padding: const EdgeInsets.all(20),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -44,58 +53,74 @@ class TodoList extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                  Row(
                     children: [
-                      // Texto de la tarea con tachado si está completada
-                      Text(
-                        task.name,
-                        style: TextStyle(
-                          fontSize: 17,
-                          decoration: task.isCompleted.value
-                              ? TextDecoration
-                                  .lineThrough // Tachar el texto si está completa
-                              : TextDecoration.none,
-                          color: task.isCompleted.value
-                              ? Colors
-                                  .black // Color gris si está completa
-                              : Colors
-                                  .black,
-                          fontWeight: FontWeight.bold // Color normal si no está completa
-                        ),
+                      Padding(
+                        padding: const EdgeInsets.only(right: 15),
+                        child: Image.asset("assets/images/Task.png",
+                            height: 40, width: 40),
                       ),
-                      Obx(
-                        () => Text(
-                          "${task.count.value} / ${task.goal} ${task.nameGoal}",
-                          style: TextStyle(
-                            fontSize: 16,
-                            decoration: task.isCompleted.value
-                                ? TextDecoration
-                                    .lineThrough // Tachar si está completa
-                                : TextDecoration.none,
-                            color: task.isCompleted.value
-                                ? Colors.grey
-                                : dayTextCardColor,
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          // Texto de la tarea con tachado si está completada
+                          Text(
+                            task.name,
+                            style: TextStyle(
+                                fontSize: 17,
+                                decoration: task.isCompleted.value
+                                    ? TextDecoration
+                                        .lineThrough // Tachar el texto si está completa
+                                    : TextDecoration.none,
+                                color: task.isCompleted.value
+                                    ? Colors
+                                        .black // Color gris si está completa
+                                    : Colors.black,
+                                fontWeight: FontWeight
+                                    .bold // Color normal si no está completa
+                                ),
                           ),
-                        ),
-                      )
+                          Obx(
+                            () => Text(
+                              "${task.count.value} / ${task.goal} ${task.nameGoal}",
+                              style: TextStyle(
+                                fontSize: 16,
+                                decoration: task.isCompleted.value
+                                    ? TextDecoration
+                                        .lineThrough // Tachar si está completa
+                                    : TextDecoration.none,
+                                color: task.isCompleted.value
+                                    ? Colors.grey
+                                    : dayTextCardColor,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                     ],
                   ),
                   Row(
                     children: [
                       IconButton(
                         // Botón para incrementar el contador
-                        icon: const Icon(Icons.add, color: primaryColor,),
+                        icon: const Icon(
+                          Icons.add,
+                          color: primaryColor,
+                        ),
                         onPressed: () {
-                          todoController.incrementTaskCount(
+                          datetaskcontroller.incrementTaskCount(
                               index); // Incrementa el contador.
                         },
                       ),
                       IconButton(
                         // Botón para eliminar la tarea
-                        icon: const Icon(Icons.delete_outline_rounded,color: primaryColor,),
+                        icon: const Icon(
+                          Icons.delete_outline_rounded,
+                          color: primaryColor,
+                        ),
                         onPressed: () {
-                          todoController.removeTask(task); // Elimina la tarea.
+                          datetaskcontroller
+                              .removeTask(task); // Elimina la tarea.
                         },
                       ),
                     ],

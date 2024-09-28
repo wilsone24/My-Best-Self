@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:my_best_self/models/task.dart';
+import 'package:my_best_self/ui/controllers/date_task_controller.dart';
 import 'package:my_best_self/ui/controllers/todo_controller.dart';
 import 'package:my_best_self/ui/widgets/custom_button.dart';
 
@@ -9,7 +10,7 @@ class QuanTaskPage extends StatelessWidget {
   final TextEditingController taskNameController = TextEditingController();
   final TextEditingController taskGoalController = TextEditingController();
   final TextEditingController taskNameGoalController = TextEditingController();
-  final TodoController todoController = Get.find();
+  final DateTaskController controller = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +18,7 @@ class QuanTaskPage extends StatelessWidget {
     return Scaffold(
       body: Column(
         children: [
-           SizedBox(
+          SizedBox(
             height: screenHeight * 0.4,
           ),
           Center(
@@ -67,16 +68,11 @@ class QuanTaskPage extends StatelessWidget {
                     String taskName = taskNameController.text.trim();
                     String goal = taskGoalController.text.trim();
                     String nameGoal = taskNameGoalController.text.trim();
-          
+
                     if (taskName.isNotEmpty &&
                         goal.isNotEmpty &&
                         nameGoal.isNotEmpty) {
-                      Task newTask = Task(
-                        name: taskName,
-                        goal: int.tryParse(goal) ?? 0,
-                        nameGoal: nameGoal,
-                      );
-                      todoController.addTodo(newTask);
+                      controller.addTaskForSelectedDay(taskName, goal, nameGoal);
                       taskNameController.clear();
                       taskGoalController.clear();
                       taskNameGoalController.clear();

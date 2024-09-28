@@ -1,11 +1,11 @@
 import 'package:get/get.dart';
-import 'package:flutter/material.dart';
+import 'package:my_best_self/models/task.dart';
 
 class DateTaskController extends GetxController {
   var selectedMonth = DateTime.now().month.obs;
   var selectedDay = DateTime.now().day.obs;
 
-  var tasksByDayAndMonth = <String, List<Widget>>{}.obs;
+  var tasksByDayAndMonth = <String, List<Task>>{}.obs;
 
   List<String> months = [
     'January',
@@ -29,35 +29,19 @@ class DateTaskController extends GetxController {
   }
 
   // Función para agregar una tarea al día seleccionado.
-  void addTaskForSelectedDay() {
+  void addTaskForSelectedDay(taskName, goal, nameGoal) {
     String key = '${selectedMonth.value}-${selectedDay.value}';
     if (!tasksByDayAndMonth.containsKey(key)) {
       tasksByDayAndMonth[key] = [];
     }
-
-    tasksByDayAndMonth[key]!.add(
-      Card(
-        elevation: 5,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(20),
-        ),
-        margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
-        child: Container(
-          height: 100,
-          alignment: Alignment.center,
-          child: const Text(
-            'Tarea',
-            style: TextStyle(
-              fontSize: 24,
-              fontWeight: FontWeight.bold,
-              color: Colors.black,
-            ),
-          ),
-        ),
-      ),
+    Task newTask = Task(
+      name: taskName,
+      goal: int.tryParse(goal) ?? 0,
+      nameGoal: nameGoal,
     );
-    tasksByDayAndMonth
-        .refresh(); // Refrescar el observable para asegurar que GetX detecte el cambio.
+
+    tasksByDayAndMonth[key]!.add(newTask);
+    tasksByDayAndMonth.refresh();
   }
 
   void nextMonth() {
@@ -76,5 +60,41 @@ class DateTaskController extends GetxController {
       selectedMonth.value = 12;
     }
     selectedDay.value = 1; // Reiniciar al primer día del nuevo mes.
+  }
+
+  void removeTask(Task task) {
+    String key = '${selectedMonth.value}-${selectedDay.value}';
+    if (tasksByDayAndMonth.containsKey(key)) {
+      tasksByDayAndMonth["${selectedMonth.value}-${selectedDay.value}"]
+          ?.remove(task);
+    }
+    tasksByDayAndMonth.refresh();
+  }
+
+  void incrementTaskCount(int index) {
+    String key = '${selectedMonth.value}-${selectedDay.value}';
+    if (tasksByDayAndMonth.containsKey(key)) {
+      tasksByDayAndMonth["${selectedMonth.value}-${selectedDay.value}"]?[index]
+          .incrementCount();
+    }
+    tasksByDayAndMonth.refresh();
+  }
+
+  int calculateCompletedPoints() {
+    int points = 0;
+
+    // Recorre cada entrada en el mapa tasksByDayAndMonth
+    for (var entry in tasksByDayAndMonth.entries) {
+      List<Task> tasksOnDate = entry.value; // Obtén la lista de tareas
+
+      // Recorre cada tarea en la lista
+      for (var task in tasksOnDate) {
+        if (task.isCompleted.value) {
+          points += int.parse(task.points);
+        }
+      }
+    }
+    tasksByDayAndMonth.refresh();
+    return points;
   }
 }

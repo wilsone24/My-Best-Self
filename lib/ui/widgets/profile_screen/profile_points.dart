@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:my_best_self/ui/controllers/date_controller.dart';
+import 'package:my_best_self/ui/controllers/date_task_controller.dart';
 import 'package:my_best_self/ui/controllers/todo_controller.dart';
 import 'package:my_best_self/ui/utils/colors.dart';
 
@@ -10,13 +11,13 @@ class ProfilePoints extends StatelessWidget {
     required this.screenHeight,
     required this.screenWidght,
     required this.dateController,
-    required this.todoController,
+    required this.dateTaskController,
   });
 
   final double screenHeight;
   final double screenWidght;
   final DateController dateController;
-  final TodoController todoController;
+  final DateTaskController dateTaskController;
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +54,7 @@ class ProfilePoints extends StatelessWidget {
               ],
             ),
             Obx(() => Text(
-                  "${todoController.calculateCompletedPoints()}",
+                  "${dateTaskController.calculateCompletedPoints()}",
                   style: const TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 20,

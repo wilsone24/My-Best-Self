@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:my_best_self/ui/controllers/todo_controller.dart';
+import 'package:my_best_self/ui/controllers/date_task_controller.dart';
 import 'package:my_best_self/ui/utils/colors.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 
 class GameScreen extends StatelessWidget {
   GameScreen({super.key});
-  final TodoController todoController = Get.find(); // Obtén el controlador
+  final DateTaskController dateTaskController =
+      Get.find(); // Obtén el controlador
   final int necessaryPoints = 400;
 
   @override
@@ -19,7 +20,7 @@ class GameScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             Obx(() {
-              final points = todoController.calculateCompletedPoints();
+              final points = dateTaskController.calculateCompletedPoints();
               final int currentLevel =
                   (points ~/ necessaryPoints) + 1; // Calcula el nivel
               final int pointsInLevel =
@@ -31,13 +32,13 @@ class GameScreen extends StatelessWidget {
                   Text(
                     "Nivel $currentLevel",
                     style: const TextStyle(
-                        fontSize: 60, fontWeight: FontWeight.bold),
+                        fontSize: 55, fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(height: 20), // Espaciado
                   CircularPercentIndicator(
                     animation: true,
                     animationDuration: 1000,
-                    radius: 200,
+                    radius: 180,
                     lineWidth: 40,
                     percent: pointsInLevel /
                         necessaryPoints, // Usamos los puntos dentro del nivel
@@ -53,7 +54,7 @@ class GameScreen extends StatelessWidget {
               );
             }),
             Obx(() {
-              final points = todoController.calculateCompletedPoints();
+              final points = dateTaskController.calculateCompletedPoints();
               final int pointsInLevel =
                   points % necessaryPoints; // Progreso en el nivel actual
 

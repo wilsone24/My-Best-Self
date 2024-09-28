@@ -18,20 +18,13 @@ class ProfileHeader extends StatelessWidget {
       child: Container(
         width: double.infinity,
         height: screenHeight * 0.27,
-        decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: const BorderRadius.only(
-              bottomLeft: Radius.circular(40),
-              bottomRight: Radius.circular(40),
-            ),
-            boxShadow: [
-              BoxShadow(
-                  color: Colors.grey.withOpacity(0.1),
-                  spreadRadius: 5,
-                  blurRadius: 7,
-                  offset: const Offset(0, 3) // changes
-                  )
-            ]),
+        decoration: const BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.only(
+            bottomLeft: Radius.circular(40),
+            bottomRight: Radius.circular(40),
+          ),
+        ),
         child: Center(
           child: Obx(
             () => Text("Hi ${userController.userName}!",
