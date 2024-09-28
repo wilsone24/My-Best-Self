@@ -24,10 +24,10 @@ class ProfileScreen extends StatelessWidget {
             screenHeight: screenHeight, userController: userController),
         Padding(
           padding: EdgeInsetsDirectional.only(
-              start: 25,
+              start: screenHeight * 0.025,
               top: screenHeight * 0.03,
-              end: 25,
-              bottom: screenHeight * 0.01),
+              end: screenHeight * 0.025,
+              bottom: screenHeight * 0),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -53,4 +53,3 @@ class ProfileScreen extends StatelessWidget {
     );
   }
 }
-

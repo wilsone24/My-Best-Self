@@ -13,6 +13,7 @@ class GameScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double screenHeight = MediaQuery.of(context).size.height;
     return Center(
       child: Padding(
         padding: const EdgeInsets.all(15.0),
@@ -31,15 +32,16 @@ class GameScreen extends StatelessWidget {
                   // Título que muestra el nivel
                   Text(
                     "Nivel $currentLevel",
-                    style: const TextStyle(
-                        fontSize: 55, fontWeight: FontWeight.bold),
+                    style: TextStyle(
+                        fontSize: screenHeight * 0.06,
+                        fontWeight: FontWeight.bold),
                   ),
-                  const SizedBox(height: 20), // Espaciado
+                  SizedBox(height: screenHeight * 0.03), // Espaciado
                   CircularPercentIndicator(
                     animation: true,
                     animationDuration: 1000,
-                    radius: 180,
-                    lineWidth: 40,
+                    radius: screenHeight * 0.2,
+                    lineWidth: screenHeight * 0.045,
                     percent: pointsInLevel /
                         necessaryPoints, // Usamos los puntos dentro del nivel
                     progressColor: primaryColor,
@@ -47,7 +49,7 @@ class GameScreen extends StatelessWidget {
                     circularStrokeCap: CircularStrokeCap.round,
                     center: Text(
                       "${((pointsInLevel / necessaryPoints) * 100).toStringAsFixed(0)}%",
-                      style: const TextStyle(fontSize: 50),
+                      style: TextStyle(fontSize: screenHeight * 0.065),
                     ),
                   ),
                 ],
@@ -61,7 +63,7 @@ class GameScreen extends StatelessWidget {
               return LinearPercentIndicator(
                 animation: true,
                 animationDuration: 1000,
-                lineHeight: 40,
+                lineHeight: screenHeight * 0.05,
                 percent: pointsInLevel /
                     necessaryPoints, // Usamos los puntos dentro del nivel
                 progressColor: primaryColor,

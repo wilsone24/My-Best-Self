@@ -35,7 +35,8 @@ class ProfilePoints extends StatelessWidget {
                 )
           ]),
       child: Padding(
-        padding: const EdgeInsetsDirectional.only(start: 25, end: 20),
+        padding: EdgeInsetsDirectional.only(
+            start: screenHeight * 0.027, end: screenHeight * 0.027),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -44,19 +45,21 @@ class ProfilePoints extends StatelessWidget {
               children: [
                 Obx(() => Text(
                       dateController.getCurrentDate(),
-                      style: const TextStyle(
-                          fontWeight: FontWeight.bold, fontSize: 17),
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: screenHeight * 0.02),
                     )),
                 Text("Total points",
-                    style:
-                        TextStyle(color: Colors.blueGrey[600], fontSize: 17)),
+                    style: TextStyle(
+                        color: Colors.blueGrey[600],
+                        fontSize: screenHeight * 0.021)),
               ],
             ),
             Obx(() => Text(
                   "${dateTaskController.calculateCompletedPoints()}",
-                  style: const TextStyle(
+                  style: TextStyle(
                       fontWeight: FontWeight.bold,
-                      fontSize: 20,
+                      fontSize: screenHeight * 0.025,
                       color: primaryColor),
                 ))
           ],
