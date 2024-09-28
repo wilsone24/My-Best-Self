@@ -27,12 +27,31 @@ class HomeHeader extends StatelessWidget {
                 )
           ]),
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              const Center(child: Text("Today")),
-              Center(
-                  child: Obx(() => Text("Hi ${userController.userName}!"))),
-              const Center(child: Text("Fecha")),
-              const Center(child: Text("Cards")),
+              const SizedBox(height: 30),
+              Column(
+                children: [
+                  const Center(
+                      child: Text(
+                    "Today",
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 27),
+                  )),
+                  Center(
+                      child: Obx(() => Text(
+                            "Hi ${userController.userName}!",
+                            style: const TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 15),
+                          )))
+                ],
+              ),
+              const SizedBox(height: 20),
+              const Column(
+                children: [
+                  Center(child: Text("Fecha")),
+                  Center(child: Text("Cards")),
+                ],
+              ),
             ],
           )),
     );

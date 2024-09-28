@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:my_best_self/ui/controllers/todo_controller.dart';
 import 'package:my_best_self/ui/utils/colors.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 
 class GameScreen extends StatelessWidget {
-  const GameScreen({super.key});
-  final int points = 40; 
-  final int necessaryPoints = 100;
+  GameScreen({super.key});
+  final TodoController todoController = Get.find(); // Obtén el controlador
+  final int necessaryPoints = 400;
 
   @override
   Widget build(BuildContext context) {
@@ -16,29 +18,56 @@ class GameScreen extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            CircularPercentIndicator(
-              animation: true,
-              animationDuration: 1000,
-              radius: 200,
-              lineWidth: 40,
-              percent: points/necessaryPoints,
-              progressColor: primaryColor,
-              backgroundColor: primaryColor.withOpacity(0.2),
-              circularStrokeCap: CircularStrokeCap.round,
-              center:  Text(
-                "${((points / necessaryPoints)*100).toStringAsFixed(0)}%",
-                style: const TextStyle(fontSize: 50),
-              ),
-            ),
-            LinearPercentIndicator(
-              animation: true,
-              animationDuration: 1000,
-              lineHeight: 40,
-              percent: points/necessaryPoints,
-              progressColor: primaryColor,
-              backgroundColor: primaryColor.withOpacity(0.2),
-              barRadius: const Radius.circular(50),
-            )
+            Obx(() {
+              final points = todoController.calculateCompletedPoints();
+              final int currentLevel =
+                  (points ~/ necessaryPoints) + 1; // Calcula el nivel
+              final int pointsInLevel =
+                  points % necessaryPoints; // Progreso en el nivel actual
+
+              return Column(
+                children: [
+                  // Título que muestra el nivel
+                  Text(
+                    "Nivel $currentLevel",
+                    style: const TextStyle(
+                        fontSize: 60, fontWeight: FontWeight.bold),
+                  ),
+                  const SizedBox(height: 20), // Espaciado
+                  CircularPercentIndicator(
+                    animation: true,
+                    animationDuration: 1000,
+                    radius: 200,
+                    lineWidth: 40,
+                    percent: pointsInLevel /
+                        necessaryPoints, // Usamos los puntos dentro del nivel
+                    progressColor: primaryColor,
+                    backgroundColor: primaryColor.withOpacity(0.2),
+                    circularStrokeCap: CircularStrokeCap.round,
+                    center: Text(
+                      "${((pointsInLevel / necessaryPoints) * 100).toStringAsFixed(0)}%",
+                      style: const TextStyle(fontSize: 50),
+                    ),
+                  ),
+                ],
+              );
+            }),
+            Obx(() {
+              final points = todoController.calculateCompletedPoints();
+              final int pointsInLevel =
+                  points % necessaryPoints; // Progreso en el nivel actual
+
+              return LinearPercentIndicator(
+                animation: true,
+                animationDuration: 1000,
+                lineHeight: 40,
+                percent: pointsInLevel /
+                    necessaryPoints, // Usamos los puntos dentro del nivel
+                progressColor: primaryColor,
+                backgroundColor: primaryColor.withOpacity(0.2),
+                barRadius: const Radius.circular(50),
+              );
+            }),
           ],
         ),
       ),

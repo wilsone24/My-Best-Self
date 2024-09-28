@@ -16,7 +16,7 @@ class _MainpageState extends State<Mainpage> {
   int _selectedIndex = 0;
   static final List<Widget> _widgetOptions = <Widget>[
     HomeScreen(),
-    const GameScreen(),
+    GameScreen(),
     ProfileScreen(),
     const Placeholder(),
   ];
