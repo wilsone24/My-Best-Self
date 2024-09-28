@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:my_best_self/ui/navbar/navbar.dart';
+import 'package:my_best_self/ui/views/home_screen2.dart';
 import 'package:my_best_self/ui/views/points_screen.dart';
 import 'package:my_best_self/ui/views/home_screen.dart';
 import 'package:my_best_self/ui/views/profile_screen.dart';
@@ -15,7 +16,7 @@ class Mainpage extends StatefulWidget {
 class _MainpageState extends State<Mainpage> {
   int _selectedIndex = 0;
   static final List<Widget> _widgetOptions = <Widget>[
-    HomeScreen(),
+    HomeScreen2(),
     GameScreen(),
     ProfileScreen(),
     const Placeholder(),
