@@ -57,19 +57,43 @@ class TemplatePage extends StatelessWidget {
 
     return Scaffold(
       body: SafeArea(
-        child: ListView.builder(
-          itemCount: tasks.length,
-          itemBuilder: (context, index) {
-            // Obtener los datos de la tarea en la posición actual
-            final task = tasks[index];
-            return PredeterminedTask(
-              screenHeight: screenHeight,
-              nameTask: task['nameTask']!,
-              descriptionTask: task['descriptionTask']!,
-              page: task['page']!,
-              image: task['image']!,
-            );
-          },
+        child: Column(
+          children: [
+            Padding(
+              padding: EdgeInsets.symmetric(
+                  vertical: screenHeight * 0.03), // Espacio vertical
+              child: Text(
+                "Templates",
+                style: TextStyle(
+                  fontSize: screenHeight * 0.05, // Tamaño de texto grande
+                  fontWeight: FontWeight.bold, // Negrita
+                ),
+              ),
+            ),
+            Expanded(
+              // Para expandir y ocupar el espacio restante
+              child: ListView.builder(
+                itemCount: tasks.length +
+                    1, // Incrementamos el conteo por el padding extra
+                itemBuilder: (context, index) {
+                  if (index == tasks.length) {
+                    return SizedBox(
+                        height:
+                            screenHeight * 0.05); // Espacio adicional al final
+                  }
+                  // Obtener los datos de la tarea en la posición actual
+                  final task = tasks[index];
+                  return PredeterminedTask(
+                    screenHeight: screenHeight,
+                    nameTask: task['nameTask']!,
+                    descriptionTask: task['descriptionTask']!,
+                    page: task['page']!,
+                    image: task['image']!,
+                  );
+                },
+              ),
+            ),
+          ],
         ),
       ),
     );
