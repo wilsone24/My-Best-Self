@@ -37,7 +37,7 @@ class _MainpageState extends State<Mainpage> {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: CustomFloatingActionButton(
-        onPressed: () => Get.toNamed('/quantaskpage/'), // Action for the center button
+        onPressed: () => Get.toNamed('/templatepage/'), // Action for the center button
       ),
     );
   }

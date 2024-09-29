@@ -29,7 +29,7 @@ class DateTaskController extends GetxController {
   }
 
   // Función para agregar una tarea al día seleccionado.
-  void addTaskForSelectedDay(taskName, goal, nameGoal) {
+  void addTaskForSelectedDay(taskName, goal, nameGoal,image) {
     String key = '${selectedMonth.value}-${selectedDay.value}';
     if (!tasksByDayAndMonth.containsKey(key)) {
       tasksByDayAndMonth[key] = [];
@@ -38,6 +38,7 @@ class DateTaskController extends GetxController {
       name: taskName,
       goal: int.tryParse(goal) ?? 0,
       nameGoal: nameGoal,
+      image: image
     );
 
     tasksByDayAndMonth[key]!.add(newTask);

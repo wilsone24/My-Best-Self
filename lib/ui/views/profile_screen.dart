@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:my_best_self/ui/controllers/date_controller.dart';
 import 'package:my_best_self/ui/controllers/date_task_controller.dart';
 import 'package:my_best_self/ui/controllers/user_controller.dart';
-import 'package:my_best_self/ui/widgets/custom_button.dart';
+import 'package:my_best_self/ui/widgets/buttons/custom_button.dart';
 import 'package:my_best_self/ui/widgets/profile_screen/profile_header.dart';
 import 'package:my_best_self/ui/widgets/profile_screen/profile_photo.dart';
 import 'package:my_best_self/ui/widgets/profile_screen/profile_points.dart';

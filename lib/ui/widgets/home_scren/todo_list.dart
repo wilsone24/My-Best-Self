@@ -56,7 +56,7 @@ class TodoList extends StatelessWidget {
                     children: [
                       Padding(
                         padding: const EdgeInsets.only(right: 15),
-                        child: Image.asset("assets/images/Task.png",
+                        child: Image.asset(task.image,
                             height: 40, width: 40),
                       ),
                       Column(
