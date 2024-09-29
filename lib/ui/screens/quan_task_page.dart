@@ -19,7 +19,6 @@ class QuanTaskPage extends StatelessWidget {
       // Asignar valores a los controladores desde el mapa de argumentos
       taskNameController.text = arguments['taskName'] ?? '';
       taskNameGoalController.text = arguments['taskDescription'] ?? '';
-      String image = arguments['image'] ?? 'assets/images/Task.png';
       taskImageController.text = arguments['image'] ?? 'assets/images/Task.png';
     }
     return Scaffold(

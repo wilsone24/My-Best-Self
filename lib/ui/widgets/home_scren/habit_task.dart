@@ -4,8 +4,8 @@ import 'package:my_best_self/models/task.dart';
 import 'package:my_best_self/ui/controllers/date_task_controller.dart';
 import 'package:my_best_self/ui/utils/colors.dart'; // Asegúrate de importar GetX
 
-class TodoList extends StatelessWidget {
-  const TodoList({
+class HabitTask extends StatelessWidget {
+  const HabitTask({
     super.key,
     required this.task,
     required this.index,
@@ -56,8 +56,7 @@ class TodoList extends StatelessWidget {
                     children: [
                       Padding(
                         padding: const EdgeInsets.only(right: 15),
-                        child: Image.asset(task.image,
-                            height: 40, width: 40),
+                        child: Image.asset(task.image, height: 40, width: 40),
                       ),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -98,29 +97,60 @@ class TodoList extends StatelessWidget {
                       ),
                     ],
                   ),
-                  Row(
+                  Column(
                     children: [
-                      IconButton(
-                        // Botón para incrementar el contador
-                        icon: const Icon(
-                          Icons.add,
-                          color: primaryColor,
+                      if (task.isCompleted.value)
+                        Container(
+                          decoration: BoxDecoration(
+                            gradient: const LinearGradient(
+                              colors: [
+                                Color.fromARGB(
+                                    255, 255, 215, 0), // Dorado claro
+                                Color.fromARGB(
+                                    255, 212, 175, 55), // Dorado oscuro
+                              ],
+                              begin: Alignment.topLeft,
+                              end: Alignment.bottomRight,
+                            ),
+                            borderRadius:
+                                BorderRadius.circular(5), // Bordes redondeados
+                          ),
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 4, horizontal: 8), // Espacio interno
+                          child: const Text(
+                            "100 Points",
+                            style: TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white, // Color del texto
+                            ),
+                          ),
                         ),
-                        onPressed: () {
-                          datetaskcontroller.incrementTaskCount(
-                              index); // Incrementa el contador.
-                        },
-                      ),
-                      IconButton(
-                        // Botón para eliminar la tarea
-                        icon: const Icon(
-                          Icons.delete_outline_rounded,
-                          color: primaryColor,
-                        ),
-                        onPressed: () {
-                          datetaskcontroller
-                              .removeTask(task); // Elimina la tarea.
-                        },
+                      Row(
+                        children: [
+                          IconButton(
+                            // Botón para incrementar el contador
+                            icon: const Icon(
+                              Icons.add,
+                              color: primaryColor,
+                            ),
+                            onPressed: () {
+                              datetaskcontroller.incrementTaskCount(
+                                  index); // Incrementa el contador.
+                            },
+                          ),
+                          IconButton(
+                            // Botón para eliminar la tarea
+                            icon: const Icon(
+                              Icons.delete_outline_rounded,
+                              color: primaryColor,
+                            ),
+                            onPressed: () {
+                              datetaskcontroller
+                                  .removeTask(task); // Elimina la tarea.
+                            },
+                          ),
+                        ],
                       ),
                     ],
                   ),
