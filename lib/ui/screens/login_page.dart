@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:my_best_self/ui/controllers/user_controller.dart';
 import 'package:my_best_self/ui/utils/colors.dart';
-import 'package:my_best_self/ui/widgets/custom_button.dart';
+import 'package:my_best_self/ui/widgets/buttons/custom_button.dart';
 
 class LoginPage extends StatelessWidget {
   final UserController userController = Get.find();
@@ -13,12 +13,13 @@ class LoginPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
           children: [
-            const SizedBox(
-              height: 400,
+            SizedBox(
+              height: screenHeight * 0.4,
             ),
             const Text('Enter your name',
                 style: TextStyle(

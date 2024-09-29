@@ -24,14 +24,15 @@ class GameScreen extends StatelessWidget {
               final points = dateTaskController.calculateCompletedPoints();
               final int currentLevel =
                   (points ~/ necessaryPoints) + 1; // Calcula el nivel
-              final int pointsInLevel =
-                  points % necessaryPoints; // Progreso en el nivel actual
+              final int pointsInLevel = points % necessaryPoints;
+              final int pointsNeededForNextLevel = necessaryPoints -
+                  pointsInLevel; // Progreso en el nivel actual
 
               return Column(
                 children: [
                   // Título que muestra el nivel
                   Text(
-                    "Nivel $currentLevel",
+                    "Level $currentLevel",
                     style: TextStyle(
                         fontSize: screenHeight * 0.06,
                         fontWeight: FontWeight.bold),
@@ -50,6 +51,31 @@ class GameScreen extends StatelessWidget {
                     center: Text(
                       "${((pointsInLevel / necessaryPoints) * 100).toStringAsFixed(0)}%",
                       style: TextStyle(fontSize: screenHeight * 0.065),
+                    ),
+                  ),
+                  SizedBox(height: screenHeight * 0.01),
+                  Container(
+                    decoration: BoxDecoration(
+                      gradient: const LinearGradient(
+                        colors: [
+                          Color.fromARGB(255, 255, 215, 0), // Dorado claro
+                          Color.fromARGB(255, 212, 175, 55), // Dorado oscuro
+                        ],
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                      ),
+                      borderRadius:
+                          BorderRadius.circular(5), // Bordes redondeados
+                    ),
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 4, horizontal: 8), // Espacio interno
+                    child: Text(
+                      "400 Points per level",
+                      style: TextStyle(
+                        fontSize: screenHeight * 0.02,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white, // Color del texto
+                      ),
                     ),
                   ),
                 ],

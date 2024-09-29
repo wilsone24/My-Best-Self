@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:my_best_self/ui/controllers/date_task_controller.dart';
 import 'package:my_best_self/ui/controllers/user_controller.dart';
 import 'package:my_best_self/ui/widgets/home_scren/home_header.dart';
-import 'package:my_best_self/ui/widgets/home_scren/todo_list.dart';
+import 'package:my_best_self/ui/widgets/home_scren/habit_task.dart';
 class HomeScreen extends StatelessWidget {
   final UserController userController = Get.find();
   final DateTaskController dateController = Get.find();
@@ -26,7 +26,7 @@ class HomeScreen extends StatelessWidget {
             return ListView.builder(
               itemCount: tasks.length,
               itemBuilder: (context, index) {
-                return TodoList(
+                return HabitTask(
                   task: tasks[index],
                   index: index,
                 );
