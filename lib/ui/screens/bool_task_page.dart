@@ -73,6 +73,7 @@ class BoolTaskPage extends StatelessWidget {
                             taskName, goal, nameGoal, image);
                         taskNameController.clear();
                         taskNameGoalController.clear();
+                        taskImageController.clear();
                         Get.toNamed('/mainpage/');
                       } else {
                         Get.snackbar(

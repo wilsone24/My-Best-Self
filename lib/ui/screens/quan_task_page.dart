@@ -86,6 +86,7 @@ class QuanTaskPage extends StatelessWidget {
                         taskNameController.clear();
                         taskGoalController.clear();
                         taskNameGoalController.clear();
+                        taskImageController.clear();
                         Get.toNamed('/mainpage/');
                       } else {
                         Get.snackbar(
