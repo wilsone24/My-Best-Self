@@ -24,9 +24,8 @@ class GameScreen extends StatelessWidget {
               final points = dateTaskController.calculateCompletedPoints();
               final int currentLevel =
                   (points ~/ necessaryPoints) + 1; // Calcula el nivel
-              final int pointsInLevel = points % necessaryPoints;
-              final int pointsNeededForNextLevel = necessaryPoints -
-                  pointsInLevel; // Progreso en el nivel actual
+              final int pointsInLevel =
+                  points % necessaryPoints; // Progreso en el nivel actual
 
               return Column(
                 children: [
