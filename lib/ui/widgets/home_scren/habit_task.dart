@@ -117,9 +117,9 @@ class HabitTask extends StatelessWidget {
                           ),
                           padding: const EdgeInsets.symmetric(
                               vertical: 4, horizontal: 8), // Espacio interno
-                          child: const Text(
-                            "100 Points",
-                            style: TextStyle(
+                          child: Text(
+                            "${task.points} Points",
+                            style: const TextStyle(
                               fontSize: 14,
                               fontWeight: FontWeight.bold,
                               color: Colors.white, // Color del texto

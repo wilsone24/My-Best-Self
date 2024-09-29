@@ -13,12 +13,13 @@ class LoginPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
           children: [
-            const SizedBox(
-              height: 400,
+            SizedBox(
+              height: screenHeight * 0.4,
             ),
             const Text('Enter your name',
                 style: TextStyle(

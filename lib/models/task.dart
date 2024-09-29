@@ -13,7 +13,7 @@ class Task {
     required this.name,
     required this.goal,
     required this.nameGoal,
-    this.points = "100",
+    this.points = "",
     this.image = "assets/images/Task.png",
   });
 
