@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:my_best_self/ui/utils/colors.dart';
 
 class CustomBottomNavBar extends StatelessWidget {
@@ -13,8 +14,9 @@ class CustomBottomNavBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double screenHeight = MediaQuery.of(context).size.height;
     return BottomAppBar(
-      height: 100,
+      height: screenHeight * 0.1,
       shape: const CircularNotchedRectangle(),
       notchMargin: 8,
       color: Colors.white,
@@ -25,11 +27,14 @@ class CustomBottomNavBar extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             const TodayBottomBar(),
-            _buildNavItem(0, 'Home', Icons.task_alt_rounded),
+            _buildNavItem(
+              0,
+              'Home',
+              Icons.task_alt_rounded,
+            ),
             const SizedBox(width: 66),
             _buildNavItem(1, 'Points', Icons.bar_chart_rounded),
             _buildNavItem(2, 'Profile', Icons.person_outline),
-            
           ],
         ),
       ),
@@ -38,7 +43,7 @@ class CustomBottomNavBar extends StatelessWidget {
 
   Widget _buildNavItem(int index, String label, IconData icon) {
     final bool isSelected = selectedIndex == index;
-    final Color color = isSelected ? primarycolor : Colors.grey;
+    final Color color = isSelected ? primaryColor : Colors.grey;
     return GestureDetector(
       onTap: () => onItemTapped(index),
       child: AnimatedContainer(
@@ -85,7 +90,7 @@ class TodayBottomBar extends StatelessWidget {
           height: 10,
           decoration: const BoxDecoration(
             shape: BoxShape.circle,
-            color: primarycolor,
+            color: primaryColor,
           ),
         )
       ],
@@ -115,7 +120,7 @@ class CustomFloatingActionButton extends StatelessWidget {
           height: 70,
           decoration: const BoxDecoration(
             shape: BoxShape.circle,
-            color: primarycolor, // Fondo del botón
+            color: primaryColor, // Fondo del botón
           ),
           child: const Icon(Icons.add, color: Colors.white, size: 40), // Ícono
         ),
@@ -152,7 +157,7 @@ class _MyHomePageState extends State<MyHomePage> {
         onItemTapped: _onItemTapped,
       ),
       floatingActionButton: CustomFloatingActionButton(
-        onPressed: () => _onItemTapped(4),
+        onPressed: () => Get.toNamed('/taskpage/'),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );

@@ -17,7 +17,7 @@ class CustomButton extends StatelessWidget {
           child: FilledButton(
               onPressed: onPressed,
               style: ButtonStyle(
-                  backgroundColor: WidgetStateProperty.all(primarycolor)),
+                  backgroundColor: WidgetStateProperty.all(primaryColor)),
               child: Padding(
                 padding: const EdgeInsetsDirectional.symmetric(vertical: 9),
                 child: Text(

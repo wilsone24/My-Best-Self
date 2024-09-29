@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:my_best_self/ui/controllers/date_controller.dart';
-import 'package:my_best_self/ui/controllers/task_controller.dart';
+import 'package:my_best_self/ui/controllers/date_task_controller.dart';
 import 'package:my_best_self/ui/utils/colors.dart';
 
 class ProfilePoints extends StatelessWidget {
@@ -10,13 +10,13 @@ class ProfilePoints extends StatelessWidget {
     required this.screenHeight,
     required this.screenWidght,
     required this.dateController,
-    required this.taskController,
+    required this.dateTaskController,
   });
 
   final double screenHeight;
   final double screenWidght;
   final DateController dateController;
-  final TaskController taskController;
+  final DateTaskController dateTaskController;
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +35,8 @@ class ProfilePoints extends StatelessWidget {
                 )
           ]),
       child: Padding(
-        padding: const EdgeInsetsDirectional.only(start: 25, end: 20),
+        padding: EdgeInsetsDirectional.only(
+            start: screenHeight * 0.027, end: screenHeight * 0.027),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -44,20 +45,22 @@ class ProfilePoints extends StatelessWidget {
               children: [
                 Obx(() => Text(
                       dateController.getCurrentDate(),
-                      style: const TextStyle(
-                          fontWeight: FontWeight.bold, fontSize: 17),
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: screenHeight * 0.02),
                     )),
                 Text("Total points",
                     style: TextStyle(
-                        color: Colors.blueGrey[600], fontSize: 17)),
+                        color: Colors.blueGrey[600],
+                        fontSize: screenHeight * 0.021)),
               ],
             ),
             Obx(() => Text(
-                  taskController.getGlobalAverageScore(),
-                  style: const TextStyle(
+                  "${dateTaskController.calculateCompletedPoints()}",
+                  style: TextStyle(
                       fontWeight: FontWeight.bold,
-                      fontSize: 20,
-                      color: primarycolor),
+                      fontSize: screenHeight * 0.025,
+                      color: primaryColor),
                 ))
           ],
         ),
