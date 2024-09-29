@@ -17,17 +17,16 @@ class TodoList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final DateTaskController datetaskcontroller = Get.find();
-
+    double screenHeight = MediaQuery.of(context).size.height;
     return Padding(
-      padding: const EdgeInsets.only(
-        top: 20,
-        left: 35,
-        right: 35,
-        bottom: 0,
+      padding: EdgeInsets.only(
+        top: 0,
+        left: screenHeight * 0.038,
+        right: screenHeight * 0.038,
+        bottom: screenHeight * 0.025,
       ),
       child: Obx(() {
         // Verifica si la tarea está completa
-
         return AnimatedContainer(
           duration: const Duration(
               milliseconds: 500), // Animación para cambio de color

@@ -14,8 +14,9 @@ class CustomBottomNavBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double screenHeight = MediaQuery.of(context).size.height;
     return BottomAppBar(
-      height: 80,
+      height: screenHeight * 0.1,
       shape: const CircularNotchedRectangle(),
       notchMargin: 8,
       color: Colors.white,
@@ -26,7 +27,11 @@ class CustomBottomNavBar extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             const TodayBottomBar(),
-            _buildNavItem(0, 'Home', Icons.task_alt_rounded),
+            _buildNavItem(
+              0,
+              'Home',
+              Icons.task_alt_rounded,
+            ),
             const SizedBox(width: 66),
             _buildNavItem(1, 'Points', Icons.bar_chart_rounded),
             _buildNavItem(2, 'Profile', Icons.person_outline),
