@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:my_best_self/ui/controllers/date_task_controller.dart';
 import 'package:my_best_self/ui/widgets/buttons/custom_button.dart';
+
 class QuanTaskPage extends StatelessWidget {
   QuanTaskPage({super.key});
   final TextEditingController taskNameController = TextEditingController();
@@ -13,6 +14,7 @@ class QuanTaskPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
+    taskImageController.text = 'assets/images/Task.png';
     final Map<String, dynamic>? arguments =
         Get.arguments as Map<String, dynamic>?;
     if (arguments != null) {
@@ -82,7 +84,7 @@ class QuanTaskPage extends StatelessWidget {
                           goal.isNotEmpty &&
                           nameGoal.isNotEmpty) {
                         controller.addTaskForSelectedDay(
-                            taskName, goal, nameGoal,image);
+                            taskName, goal, nameGoal, image);
                         taskNameController.clear();
                         taskGoalController.clear();
                         taskNameGoalController.clear();

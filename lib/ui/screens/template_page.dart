@@ -125,12 +125,17 @@ class PredeterminedTask extends StatelessWidget {
           right: screenHeight * 0.035),
       child: InkWell(
         onTap: () {
-          Map<String, String> arguments = {
-            "taskName": nameTask,
-            "taskDescription": descriptionTask,
-            "image": image
-          };
-          Get.toNamed(page, arguments: arguments);
+          if (nameTask == "Boolean Task" || nameTask == "Quantifiable Task") {
+            Get.toNamed(page);
+            return;
+          } else {
+            Map<String, String> arguments = {
+              "taskName": nameTask,
+              "taskDescription": descriptionTask,
+              "image": image
+            };
+            Get.toNamed(page, arguments: arguments);
+          }
         },
         borderRadius: BorderRadius.circular(
             15), // Aplica el mismo borde redondeado al efecto de InkWell

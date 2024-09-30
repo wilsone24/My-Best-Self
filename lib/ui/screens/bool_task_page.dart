@@ -13,13 +13,13 @@ class BoolTaskPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
+    taskImageController.text = 'assets/images/obje.png';
     final Map<String, dynamic>? arguments =
         Get.arguments as Map<String, dynamic>?;
     if (arguments != null) {
-      // Asignar valores a los controladores desde el mapa de argumentos
       taskNameController.text = arguments['taskName'] ?? '';
       taskNameGoalController.text = arguments['taskDescription'] ?? '';
-      taskImageController.text = arguments['image'] ?? 'assets/images/Task.png';
+      taskImageController.text = arguments['image'] ?? 'assets/images/obje.png';
     }
     return Scaffold(
       body: SingleChildScrollView(
