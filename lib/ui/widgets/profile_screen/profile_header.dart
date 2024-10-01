@@ -14,24 +14,22 @@ class ProfileHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Container(
-        width: double.infinity,
-        height: screenHeight * 0.27,
-        decoration: const BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.only(
-            bottomLeft: Radius.circular(40),
-            bottomRight: Radius.circular(40),
-          ),
+    return Container(
+      width: double.infinity,
+      height: screenHeight * 0.31,
+      decoration: const BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.only(
+          bottomLeft: Radius.circular(40),
+          bottomRight: Radius.circular(40),
         ),
-        child: Center(
-          child: Obx(
-            () => Text("Hi ${userController.userName}!",
-                style: TextStyle(
-                    fontSize: screenHeight * 0.05,
-                    fontWeight: FontWeight.w600)),
-          ),
+      ),
+      child: Center(
+        child: Obx(
+          () => Text("Hi ${userController.userName}!",
+              style: TextStyle(
+                  fontSize: screenHeight * 0.05,
+                  fontWeight: FontWeight.w600)),
         ),
       ),
     );
