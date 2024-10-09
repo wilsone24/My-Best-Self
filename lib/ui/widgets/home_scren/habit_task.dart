@@ -147,7 +147,7 @@ class HabitTask extends StatelessWidget {
                             ),
                             onPressed: () {
                               datetaskcontroller
-                                  .removeTask(task); // Elimina la tarea.
+                                  .removeTask(task.id); // Elimina la tarea.
                             },
                           ),
                         ],

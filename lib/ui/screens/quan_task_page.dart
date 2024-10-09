@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:my_best_self/ui/controllers/date_task_controller.dart';
+import 'package:my_best_self/ui/controllers/id_controller.dart';
 import 'package:my_best_self/ui/widgets/buttons/custom_button.dart';
 
 class QuanTaskPage extends StatelessWidget {
@@ -10,6 +11,7 @@ class QuanTaskPage extends StatelessWidget {
   final TextEditingController taskNameGoalController = TextEditingController();
   final TextEditingController taskImageController = TextEditingController();
   final DateTaskController controller = Get.find();
+  final IdController idController = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -79,16 +81,18 @@ class QuanTaskPage extends StatelessWidget {
                       String goal = taskGoalController.text.trim();
                       String nameGoal = taskNameGoalController.text.trim();
                       String image = taskImageController.text.trim();
+                      int id = idController.id;
 
                       if (taskName.isNotEmpty &&
                           goal.isNotEmpty &&
                           nameGoal.isNotEmpty) {
                         controller.addTaskForSelectedDay(
-                            taskName, goal, nameGoal, image);
+                            taskName, goal, nameGoal, image, id);
                         taskNameController.clear();
                         taskGoalController.clear();
                         taskNameGoalController.clear();
                         taskImageController.clear();
+                        idController.increment();
                         Get.toNamed('/mainpage/');
                       } else {
                         Get.snackbar(

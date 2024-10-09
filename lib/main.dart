@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:my_best_self/ui/controllers/date_controller.dart';
 import 'package:my_best_self/ui/controllers/date_task_controller.dart';
+import 'package:my_best_self/ui/controllers/id_controller.dart';
 import 'package:my_best_self/ui/controllers/user_controller.dart';
 import 'package:my_best_self/ui/screens/bool_task_page.dart';
 import 'package:my_best_self/ui/screens/main_page.dart';
@@ -14,6 +15,7 @@ void main() {
   Get.put(DateController());
   Get.put(UserController());
   Get.put(DateTaskController());
+  Get.put(IdController());
   runApp(const MyApp());
 }
 
