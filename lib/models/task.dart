@@ -8,6 +8,7 @@ class Task {
   final String points;
   final RxBool isCompleted = false.obs; // Cambiar a RxBool
   final String image;
+  final int id;
 
   Task({
     required this.name,
@@ -15,6 +16,7 @@ class Task {
     required this.nameGoal,
     this.points = "",
     this.image = "assets/images/Task.png",
+    required this.id,
   });
 
   void incrementCount() {

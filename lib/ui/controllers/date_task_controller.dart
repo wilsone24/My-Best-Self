@@ -29,19 +29,34 @@ class DateTaskController extends GetxController {
   }
 
   // Función para agregar una tarea al día seleccionado.
-  void addTaskForSelectedDay(taskName, goal, nameGoal, image) {
-    String key = '${selectedMonth.value}-${selectedDay.value}';
-    if (!tasksByDayAndMonth.containsKey(key)) {
-      tasksByDayAndMonth[key] = [];
-    }
-    Task newTask = Task(
-        name: taskName,
-        goal: int.tryParse(goal) ?? 0,
-        nameGoal: nameGoal,
-        image: image,
-        points: "${int.parse(goal) * 100}");
+  void addTaskForSelectedDay(taskName, goal, nameGoal, image, id) {
+    // Fecha inicial (día y mes seleccionados)
+    DateTime startDate =
+        DateTime(DateTime.now().year, selectedMonth.value, selectedDay.value);
 
-    tasksByDayAndMonth[key]!.add(newTask);
+    // Fecha final (último día del año)
+    DateTime endDate = DateTime(DateTime.now().year, 12, 31);
+
+    // Recorre desde el día seleccionado hasta el último día del año
+    for (DateTime currentDate = startDate;
+        currentDate.isBefore(endDate) || currentDate.isAtSameMomentAs(endDate);
+        currentDate = currentDate.add(const Duration(days: 1))) {
+      String key = '${currentDate.month}-${currentDate.day}';
+      if (!tasksByDayAndMonth.containsKey(key)) {
+        tasksByDayAndMonth[key] = [];
+      }
+
+      Task newTask = Task(
+          name: taskName,
+          goal: int.tryParse(goal) ?? 0,
+          nameGoal: nameGoal,
+          image: image,
+          points: "${int.parse(goal) * 100}",
+          id: id);
+
+      tasksByDayAndMonth[key]!.add(newTask);
+    }
+
     tasksByDayAndMonth.refresh();
   }
 
@@ -63,12 +78,32 @@ class DateTaskController extends GetxController {
     selectedDay.value = 1; // Reiniciar al primer día del nuevo mes.
   }
 
-  void removeTask(Task task) {
-    String key = '${selectedMonth.value}-${selectedDay.value}';
-    if (tasksByDayAndMonth.containsKey(key)) {
-      tasksByDayAndMonth["${selectedMonth.value}-${selectedDay.value}"]
-          ?.remove(task);
+  void removeTask(int taskId) {
+    // Fecha inicial (día y mes seleccionados)
+    DateTime startDate =
+        DateTime(DateTime.now().year, selectedMonth.value, selectedDay.value);
+
+    // Fecha final (último día del año)
+    DateTime endDate = DateTime(DateTime.now().year, 12, 31);
+
+    // Recorre desde el día seleccionado hasta el último día del año
+    for (DateTime currentDate = startDate;
+        currentDate.isBefore(endDate) || currentDate.isAtSameMomentAs(endDate);
+        currentDate = currentDate.add(const Duration(days: 1))) {
+      String key = '${currentDate.month}-${currentDate.day}';
+
+      // Verifica si hay tareas en ese día
+      if (tasksByDayAndMonth.containsKey(key)) {
+        // Filtra las tareas que no tienen el id que queremos eliminar
+        tasksByDayAndMonth[key]?.removeWhere((task) => task.id == taskId);
+
+        // Si no quedan tareas en ese día, eliminar la clave del mapa
+        if (tasksByDayAndMonth[key]?.isEmpty ?? true) {
+          tasksByDayAndMonth.remove(key);
+        }
+      }
     }
+
     tasksByDayAndMonth.refresh();
   }
 
@@ -96,5 +131,28 @@ class DateTaskController extends GetxController {
       }
     }
     return points;
+  }
+
+  void checkNegativeStreak() {
+    // Obtener la fecha del día anterior
+    DateTime previousDate = DateTime(
+        DateTime.now().year, selectedMonth.value, selectedDay.value - 1);
+
+    // Generar la clave para el día anterior
+    String previousKey = '${previousDate.month}-${previousDate.day}';
+
+    // Verificar si hay tareas para el día anterior
+    if (tasksByDayAndMonth.containsKey(previousKey)) {
+      List<Task> previousTasks = tasksByDayAndMonth[previousKey]!;
+      bool hasIncompleteTasks =
+          previousTasks.any((task) => !task.isCompleted.value);
+      if (hasIncompleteTasks) {
+        Get.snackbar(
+          "Negative Streak Alert",
+          "You have incomplete tasks from yesterday!",
+          snackPosition: SnackPosition.BOTTOM,
+        );
+      }
+    }
   }
 }

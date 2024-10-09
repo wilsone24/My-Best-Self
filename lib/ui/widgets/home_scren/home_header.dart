@@ -100,6 +100,7 @@ class HomeHeader extends StatelessWidget {
                           return GestureDetector(
                             onTap: () {
                               controller.selectedDay.value = day;
+                              controller.checkNegativeStreak();
                             },
                             child: Obx(() {
                               final isSelected =
