@@ -133,7 +133,7 @@ class DateTaskController extends GetxController {
     return points;
   }
 
-  bool checkNegativeStreak() {
+  void checkNegativeStreak() {
     // Obtener la fecha del día anterior
     DateTime previousDate = DateTime(
         DateTime.now().year, selectedMonth.value, selectedDay.value - 1);
@@ -147,9 +147,12 @@ class DateTaskController extends GetxController {
       bool hasIncompleteTasks =
           previousTasks.any((task) => !task.isCompleted.value);
       if (hasIncompleteTasks) {
-        return true;
+        Get.snackbar(
+          "Negative Streak Alert",
+          "You have incomplete tasks from yesterday!",
+          snackPosition: SnackPosition.BOTTOM,
+        );
       }
     }
-    return false;
   }
 }
