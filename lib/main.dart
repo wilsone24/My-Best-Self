@@ -1,14 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:my_best_self/routes/app_routes.dart'; // Importa las rutas
 import 'package:my_best_self/ui/controllers/date_controller.dart';
 import 'package:my_best_self/ui/controllers/date_task_controller.dart';
 import 'package:my_best_self/ui/controllers/id_controller.dart';
 import 'package:my_best_self/ui/controllers/user_controller.dart';
-import 'package:my_best_self/ui/screens/bool_task_page.dart';
-import 'package:my_best_self/ui/screens/main_page.dart';
-import 'package:my_best_self/ui/screens/login_page.dart';
-import 'package:my_best_self/ui/screens/quan_task_page.dart';
-import 'package:my_best_self/ui/screens/template_page.dart';
 import 'package:my_best_self/ui/utils/colors.dart';
 
 void main() {
@@ -32,13 +28,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       initialRoute: '/loginpage',
-      getPages: [
-        GetPage(name: '/loginpage', page: () => LoginPage()),
-        GetPage(name: '/mainpage', page: () => const Mainpage()),
-        GetPage(name: '/booltaskpage', page: () => BoolTaskPage()),
-        GetPage(name: '/quantaskpage', page: () => QuanTaskPage()),
-        GetPage(name: '/templatepage', page: () => const TemplatePage()),
-      ],
+      getPages: AppRoutes.routes, // Usamos las rutas desde app_routes.dart
     );
   }
 }
