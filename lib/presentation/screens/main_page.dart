@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:my_best_self/ui/navbar/navbar.dart';
-import 'package:my_best_self/ui/views/home_screen.dart';
-import 'package:my_best_self/ui/views/points_screen.dart';
-import 'package:my_best_self/ui/views/profile_screen.dart';
+import 'package:my_best_self/presentation/navbar/navbar.dart';
+import 'package:my_best_self/presentation/views/home_screen.dart';
+import 'package:my_best_self/presentation/views/points_screen.dart';
+import 'package:my_best_self/presentation/views/profile_screen.dart';
 
 class Mainpage extends StatefulWidget {
   const Mainpage({super.key});
@@ -37,7 +37,8 @@ class _MainpageState extends State<Mainpage> {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: CustomFloatingActionButton(
-        onPressed: () => Get.toNamed('/templatepage/'), // Action for the center button
+        onPressed: () =>
+            Get.toNamed('/templatepage/'), // Action for the center button
       ),
     );
   }

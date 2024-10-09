@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:my_best_self/ui/controllers/user_controller.dart';
+import 'package:my_best_self/presentation/controllers/user_controller.dart';
 
 class ProfileHeader extends StatelessWidget {
   const ProfileHeader({

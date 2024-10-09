@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:my_best_self/models/task.dart';
-import 'package:my_best_self/ui/controllers/date_task_controller.dart';
-import 'package:my_best_self/ui/utils/colors.dart'; // Asegúrate de importar GetX
+import 'package:my_best_self/data/models/task.dart';
+import 'package:my_best_self/presentation/controllers/date_task_controller.dart';
+import 'package:my_best_self/core/utils/colors.dart'; // Asegúrate de importar GetX
 
 class HabitTask extends StatelessWidget {
   const HabitTask({

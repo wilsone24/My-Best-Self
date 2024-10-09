@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:my_best_self/models/task.dart';
+import 'package:my_best_self/data/models/task.dart';
 
 class DateTaskController extends GetxController {
   var selectedMonth = DateTime.now().month.obs;

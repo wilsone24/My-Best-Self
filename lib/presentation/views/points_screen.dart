@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:my_best_self/ui/controllers/date_task_controller.dart';
-import 'package:my_best_self/ui/utils/colors.dart';
+import 'package:my_best_self/presentation/controllers/date_task_controller.dart';
+import 'package:my_best_self/core/utils/colors.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:my_best_self/ui/utils/colors.dart';
+import 'package:my_best_self/core/utils/colors.dart';
 
 class CustomBottomNavBar extends StatelessWidget {
   final int selectedIndex;

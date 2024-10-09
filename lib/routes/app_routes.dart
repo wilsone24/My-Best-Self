@@ -1,9 +1,9 @@
 import 'package:get/get.dart';
-import 'package:my_best_self/ui/screens/bool_task_page.dart';
-import 'package:my_best_self/ui/screens/login_page.dart';
-import 'package:my_best_self/ui/screens/main_page.dart';
-import 'package:my_best_self/ui/screens/quan_task_page.dart';
-import 'package:my_best_self/ui/screens/template_page.dart';
+import 'package:my_best_self/presentation/screens/bool_task_page.dart';
+import 'package:my_best_self/presentation/screens/login_page.dart';
+import 'package:my_best_self/presentation/screens/main_page.dart';
+import 'package:my_best_self/presentation/screens/quan_task_page.dart';
+import 'package:my_best_self/presentation/screens/template_page.dart';
 
 class AppRoutes {
   static final routes = [

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:my_best_self/ui/controllers/date_task_controller.dart';
-import 'package:my_best_self/ui/controllers/user_controller.dart';
+import 'package:my_best_self/presentation/controllers/date_task_controller.dart';
+import 'package:my_best_self/presentation/controllers/user_controller.dart';
 
 class HomeHeader extends StatelessWidget {
   HomeHeader({

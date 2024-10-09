@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:my_best_self/ui/controllers/user_controller.dart';
-import 'package:my_best_self/ui/utils/colors.dart';
-import 'package:my_best_self/ui/widgets/buttons/custom_button.dart';
+import 'package:my_best_self/presentation/controllers/user_controller.dart';
+import 'package:my_best_self/core/utils/colors.dart';
+import 'package:my_best_self/presentation/widgets/buttons/custom_button.dart';
 
 class LoginPage extends StatelessWidget {
   final UserController userController = Get.find();

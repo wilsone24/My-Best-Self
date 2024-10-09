@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:my_best_self/ui/controllers/date_controller.dart';
-import 'package:my_best_self/ui/controllers/date_task_controller.dart';
-import 'package:my_best_self/ui/controllers/user_controller.dart';
-import 'package:my_best_self/ui/widgets/buttons/custom_button.dart';
-import 'package:my_best_self/ui/widgets/profile_screen/profile_header.dart';
-import 'package:my_best_self/ui/widgets/profile_screen/profile_photo.dart';
-import 'package:my_best_self/ui/widgets/profile_screen/profile_points.dart';
+import 'package:my_best_self/presentation/controllers/date_controller.dart';
+import 'package:my_best_self/presentation/controllers/date_task_controller.dart';
+import 'package:my_best_self/presentation/controllers/user_controller.dart';
+import 'package:my_best_self/presentation/widgets/buttons/custom_button.dart';
+import 'package:my_best_self/presentation/widgets/profile_screen/profile_header.dart';
+import 'package:my_best_self/presentation/widgets/profile_screen/profile_photo.dart';
+import 'package:my_best_self/presentation/widgets/profile_screen/profile_points.dart';
 
 class ProfileScreen extends StatelessWidget {
   final DateController dateController = Get.find();
