@@ -83,9 +83,33 @@ class QuanTaskPage extends StatelessWidget {
                       String image = taskImageController.text.trim();
                       int id = idController.id;
 
-                      if (taskName.isNotEmpty &&
-                          goal.isNotEmpty &&
-                          nameGoal.isNotEmpty) {
+                      if (taskName.isEmpty ||
+                          goal.isEmpty ||
+                          nameGoal.isEmpty) {
+                        Get.snackbar(
+                          "Error",
+                          "Por favor, completa todos los campos",
+                          snackPosition: SnackPosition.BOTTOM,
+                        );
+                      } else if (!_isText(taskName)) {
+                        Get.snackbar(
+                          "Error",
+                          "Por favor, ingresa un nombre correcto",
+                          snackPosition: SnackPosition.BOTTOM,
+                        );
+                      } else if (!_isNumber(goal)) {
+                        Get.snackbar(
+                          "Error",
+                          "Por favor, ingresa un numero de meta valido",
+                          snackPosition: SnackPosition.BOTTOM,
+                        );
+                      } else if (!_isText(nameGoal)) {
+                        Get.snackbar(
+                          "Error",
+                          "Por favor, ingresa un nombre de meta correcto",
+                          snackPosition: SnackPosition.BOTTOM,
+                        );
+                      } else {
                         controller.addTaskForSelectedDay(
                             taskName, goal, nameGoal, image, id);
                         taskNameController.clear();
@@ -94,12 +118,6 @@ class QuanTaskPage extends StatelessWidget {
                         taskImageController.clear();
                         idController.increment();
                         Get.toNamed('/mainpage/');
-                      } else {
-                        Get.snackbar(
-                          "Error",
-                          "Por favor, completa todos los campos",
-                          snackPosition: SnackPosition.BOTTOM,
-                        );
                       }
                     },
                     text: "Add Todo",
@@ -111,5 +129,15 @@ class QuanTaskPage extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  bool _isText(String name) {
+    final validNamePattern = RegExp(r'^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$');
+    return validNamePattern.hasMatch(name);
+  }
+
+  bool _isNumber(String name) {
+    final validNamePattern = RegExp(r'^[1-9][0-9]*$');
+    return validNamePattern.hasMatch(name);
   }
 }
