@@ -8,11 +8,27 @@ class HomeHeader extends StatelessWidget {
     super.key,
     required this.screenHeight,
     required this.userController,
-  });
+  }) {
+    controller.selectedDay.value = DateTime.now().day;
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _scrollToCurrentDay();
+    });
+  }
 
   final double screenHeight;
   final UserController userController;
   final DateTaskController controller = Get.find();
+  final ScrollController _scrollController = ScrollController();
+
+  void _scrollToCurrentDay() {
+    final dayIndex = DateTime.now().day - 1;
+    final offset = dayIndex * (screenHeight * 0.085 + 10);
+    _scrollController.animateTo(
+      offset,
+      duration: const Duration(milliseconds: 300),
+      curve: Curves.easeInOut,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -70,8 +86,7 @@ class HomeHeader extends StatelessWidget {
                           Text(
                             '${controller.months[controller.selectedMonth.value - 1]} ${DateTime.now().year}',
                             style: TextStyle(
-                              fontSize:
-                                  screenHeight * 0.0150, // Ajuste dinámico
+                              fontSize: screenHeight * 0.0150, // Ajuste dinámico
                               color: const Color(0xFFADA4A5),
                             ),
                           ),
@@ -93,6 +108,7 @@ class HomeHeader extends StatelessWidget {
                       final daysOfMonth = controller.generateDaysOfMonth(
                           controller.selectedMonth.value, DateTime.now().year);
                       return ListView.builder(
+                        controller: _scrollController,
                         scrollDirection: Axis.horizontal,
                         itemCount: daysOfMonth.length,
                         itemBuilder: (context, index) {
