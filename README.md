@@ -107,8 +107,9 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## 📞 Contact
 
 LofoMarin - [@LofoMarin](https://github.com/LofoMarin)
+
 Wilsone24 - [@wilsone24](https://github.com/wilsone24)
 
-Project Link: [https://github.com/your-username/my-best-self](https://github.com/wilsone24/My-Best-Self)
+Project Link: [https://github.com/wilsone24/my-best-self](https://github.com/wilsone24/My-Best-Self)
 
 ---
