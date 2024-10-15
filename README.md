@@ -52,16 +52,27 @@ flutter run
 ## 📁 Project Structure
 
 ```
-my-best-self/
-├── android/              # Android-specific code
-├── ios/                  # iOS-specific code
-├── lib/                  # Application source code
-│   ├── ui/               # User interfaces
-│   └── models/           # Data models
-├── assets/
-│   └── images/           # Image assets
-├── pubspec.yaml          # Project configuration
-└── README.md             # Documentation
+my-flutter-project/
+├── lib/                         # Application source code
+│   ├── core/                    # Core utilities and dependencies
+│   │   ├── utils/               # Helper utilities and functions
+│   │   └── dependency_injection.dart  # Dependency injection setup
+│   ├── data/                    # Data layer (models, repositories)
+│   │   ├── models/              # Data models
+│   │   │   └── task.dart        # Task model
+│   │   └── repositories/        # Data repositories
+│   ├── domain/                  # Domain layer (business logic)
+│   │   ├── entities/            # Business entities
+│   │   ├── repositories/        # Abstract repositories
+│   │   └── usecases/            # Application use cases
+│   ├── presentation/            # Presentation layer (UI)
+│   │   ├── controllers/         # State management controllers
+│   │   ├── navbar/              # Navigation bar components
+│   │   ├── screens/             # Application screens
+│   │   ├── views/               # Views for different sections
+│   │   └── widgets/             # Reusable UI components
+│   └── routes/                  # App route definitions
+├── main.dart                    # Application entry point
 ```
 
 ## 🔧 Dependencies
@@ -96,7 +107,8 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## 📞 Contact
 
 LofoMarin - [@LofoMarin](https://github.com/LofoMarin)
+Wilsone24 - [@wilsone24](https://github.com/wilsone24)
 
-Project Link: [https://github.com/your-username/my-best-self](https://github.com/your-username/my-best-self)
+Project Link: [https://github.com/your-username/my-best-self](https://github.com/wilsone24/My-Best-Self)
 
 ---
