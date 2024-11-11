@@ -112,6 +112,8 @@ class QuanTaskPage extends StatelessWidget {
                       } else {
                         controller.addTaskForSelectedDay(
                             taskName, goal, nameGoal, image, id);
+                        print(
+                            "Task added: $taskName, Goal: $goal, Name Goal: $nameGoal, Image: $image, ID: $id");
                         taskNameController.clear();
                         taskGoalController.clear();
                         taskNameGoalController.clear();

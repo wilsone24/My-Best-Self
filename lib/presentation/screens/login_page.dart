@@ -5,7 +5,8 @@ import 'package:my_best_self/core/utils/colors.dart';
 import 'package:my_best_self/presentation/widgets/buttons/custom_button.dart';
 
 class LoginPage extends StatelessWidget {
-  final UserController userController = Get.find();
+  final UserController userController =
+      Get.find(); // Asegúrate de que esté inicializado
   final TextEditingController textController = TextEditingController();
   final RxString errorMessage = ''.obs;
 
@@ -14,6 +15,7 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
+    print('Inicio el login');
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -48,21 +50,23 @@ class LoginPage extends StatelessWidget {
                   style: const TextStyle(color: Colors.red),
                 )),
             CustomButton(
-                text: "Login",
-                onPressed: () {
-                  String name = textController.text.trim();
+              text: "Login",
+              onPressed: () {
+                String name = textController.text.trim();
 
-                  if (name.isEmpty) {
-                    errorMessage.value = 'Please, enter a name';
-                  } else if (!_isValidName(name)) {
-                    errorMessage.value = 'The name must only contain letters';
-                  } else {
-                    errorMessage.value = '';
-                    userController.setUserName(name);
-                    userController.setUserName(textController.text);
-                    Get.toNamed('/mainpage/');
-                  }
-                }),
+                if (name.isEmpty) {
+                  errorMessage.value = 'Please, enter a name';
+                } else if (!_isValidName(name)) {
+                  errorMessage.value = 'The name must only contain letters';
+                } else {
+                  errorMessage.value = '';
+                  userController
+                      .setUserName(name); // Solo una llamada a setUserName
+                  Get.toNamed(
+                      '/mainpage'); // Asegúrate de que la ruta esté definida como '/mainpage'
+                }
+              },
+            ),
           ],
         ),
       ),

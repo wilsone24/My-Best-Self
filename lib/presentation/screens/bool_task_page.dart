@@ -92,6 +92,8 @@ class BoolTaskPage extends StatelessWidget {
                       } else {
                         controller.addTaskForSelectedDay(
                             taskName, goal, nameGoal, image, id);
+                        print(
+                            "Task added: $taskName, Goal: $goal, Name Goal: $nameGoal, Image: $image, ID: $id");
                         taskNameController.clear();
                         taskNameGoalController.clear();
                         taskImageController.clear();

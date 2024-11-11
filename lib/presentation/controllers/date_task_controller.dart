@@ -1,4 +1,6 @@
 import 'package:get/get.dart';
+import 'package:hive/hive.dart';
+import 'package:my_best_self/data/models/data_db.dart';
 import 'package:my_best_self/domain/entities/task.dart';
 
 class DateTaskController extends GetxController {
@@ -6,6 +8,9 @@ class DateTaskController extends GetxController {
   var selectedDay = DateTime.now().day.obs;
 
   var tasksByDayAndMonth = <String, List<Task>>{}.obs;
+  late final Box<DataDb> taskBox;
+
+  DateTaskController({required this.taskBox});
 
   List<String> months = [
     'January',
@@ -47,14 +52,28 @@ class DateTaskController extends GetxController {
       }
 
       Task newTask = Task.id(
-          name: taskName,
-          goal: int.tryParse(goal) ?? 0,
-          nameGoal: nameGoal,
-          image: image,
-          points: "${int.parse(goal) * 100}",
-          id: id);
+        name: taskName,
+        goal: int.tryParse(goal) ?? 0,
+        nameGoal: nameGoal,
+        image: image,
+        points: "${int.parse(goal) * 100}",
+        id: id,
+      );
 
       tasksByDayAndMonth[key]!.add(newTask);
+
+      // Crear y guardar la instancia de DataDb en Hive
+      DataDb newData = DataDb(
+        id: id,
+        name: taskName,
+        goal: int.tryParse(goal) ?? 0,
+        nameGoal: nameGoal,
+        points: "${int.parse(goal) * 100}",
+        image: image,
+        date: currentDate,
+      );
+
+      taskBox.add(newData); // Guardar la tarea en Hive
     }
 
     tasksByDayAndMonth.refresh();
@@ -94,7 +113,7 @@ class DateTaskController extends GetxController {
 
       // Verifica si hay tareas en ese día
       if (tasksByDayAndMonth.containsKey(key)) {
-        // Filtra las tareas que no tienen el id que queremos eliminar
+        // Eliminar tareas en tasksByDayAndMonth que coincidan con el taskId
         tasksByDayAndMonth[key]?.removeWhere((task) => task.id == taskId);
 
         // Si no quedan tareas en ese día, eliminar la clave del mapa
@@ -104,15 +123,56 @@ class DateTaskController extends GetxController {
       }
     }
 
+    // Buscar y eliminar la tarea de Hive si existe
+    final taskToRemove = taskBox.values.firstWhere(
+      (task) => task.id == taskId,
+      orElse: () => DataDb(
+          id: -1,
+          name: '',
+          goal: 0,
+          nameGoal: '',
+          points: '',
+          image: '',
+          date: DateTime.now()),
+    );
+
+    // Solo eliminar si se encontró una coincidencia válida en Hive
+    if (taskToRemove.id != -1) {
+      taskToRemove.delete(); // Elimina la tarea de Hive
+    }
     tasksByDayAndMonth.refresh();
   }
 
   void incrementTaskCount(int index) {
     String key = '${selectedMonth.value}-${selectedDay.value}';
-    if (tasksByDayAndMonth.containsKey(key)) {
-      tasksByDayAndMonth["${selectedMonth.value}-${selectedDay.value}"]?[index]
-          .incrementCount();
+
+    // Verificar que existe la clave en el mapa y la tarea en el índice dado
+    if (tasksByDayAndMonth.containsKey(key) &&
+        index < tasksByDayAndMonth[key]!.length) {
+      // Incrementar el contador de la tarea en memoria
+      Task task = tasksByDayAndMonth[key]![index];
+      task.incrementCount();
+
+      // Buscar y actualizar la tarea en Hive
+      final taskInDb = taskBox.values.firstWhere(
+        (data) => data.id == task.id,
+        orElse: () => DataDb(
+            id: -1,
+            name: '',
+            goal: 0,
+            nameGoal: '',
+            points: '',
+            image: '',
+            date: DateTime.now()),
+      );
+
+      // Si se encontró la tarea en Hive, actualizar el valor de `count`
+      if (taskInDb.id != -1) {
+        taskInDb.count.value = task.count.value;
+        taskInDb.save(); // Guardar los cambios en Hive
+      }
     }
+
     tasksByDayAndMonth.refresh();
   }
 
@@ -121,7 +181,7 @@ class DateTaskController extends GetxController {
 
     // Recorre cada entrada en el mapa tasksByDayAndMonth
     for (var entry in tasksByDayAndMonth.entries) {
-      List<Task> tasksOnDate = entry.value; // Obtén la lista de tareas
+      List<Task> tasksOnDate = entry.value;
 
       // Recorre cada tarea en la lista
       for (var task in tasksOnDate) {
@@ -130,6 +190,14 @@ class DateTaskController extends GetxController {
         }
       }
     }
+
+    // Verificar en Hive para sincronización adicional
+    for (var taskInDb in taskBox.values) {
+      if (taskInDb.isCompleted.value) {
+        points += int.parse(taskInDb.points);
+      }
+    }
+
     return points;
   }
 
@@ -141,18 +209,29 @@ class DateTaskController extends GetxController {
     // Generar la clave para el día anterior
     String previousKey = '${previousDate.month}-${previousDate.day}';
 
-    // Verificar si hay tareas para el día anterior
+    // Verificar si hay tareas para el día anterior en `tasksByDayAndMonth`
+    bool hasIncompleteTasksInMemory = false;
     if (tasksByDayAndMonth.containsKey(previousKey)) {
       List<Task> previousTasks = tasksByDayAndMonth[previousKey]!;
-      bool hasIncompleteTasks =
+      hasIncompleteTasksInMemory =
           previousTasks.any((task) => !task.isCompleted.value);
-      if (hasIncompleteTasks) {
-        Get.snackbar(
-          "Negative Streak Alert",
-          "You have incomplete tasks from yesterday!",
-          snackPosition: SnackPosition.BOTTOM,
-        );
-      }
+    }
+
+    // Verificar si hay tareas incompletas en Hive para la misma fecha
+    bool hasIncompleteTasksInHive = taskBox.values.any(
+      (task) =>
+          task.date.month == previousDate.month &&
+          task.date.day == previousDate.day &&
+          !task.isCompleted.value,
+    );
+
+    // Mostrar la alerta si hay tareas incompletas en memoria o en Hive
+    if (hasIncompleteTasksInMemory || hasIncompleteTasksInHive) {
+      Get.snackbar(
+        "Negative Streak Alert",
+        "You have incomplete tasks from yesterday!",
+        snackPosition: SnackPosition.BOTTOM,
+      );
     }
   }
 }
