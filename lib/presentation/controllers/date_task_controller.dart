@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:my_best_self/data/models/task.dart';
+import 'package:my_best_self/domain/entities/task.dart';
 
 class DateTaskController extends GetxController {
   var selectedMonth = DateTime.now().month.obs;
@@ -46,7 +46,7 @@ class DateTaskController extends GetxController {
         tasksByDayAndMonth[key] = [];
       }
 
-      Task newTask = Task(
+      Task newTask = Task.id(
           name: taskName,
           goal: int.tryParse(goal) ?? 0,
           nameGoal: nameGoal,

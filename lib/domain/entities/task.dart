@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 
 class Task {
+  int? id;
   final String name;
   final RxInt count = 0.obs; // Cambiar a RxInt
   final int goal;
@@ -8,16 +9,21 @@ class Task {
   final String points;
   final RxBool isCompleted = false.obs; // Cambiar a RxBool
   final String image;
-  final int id;
 
-  Task({
-    required this.name,
-    required this.goal,
-    required this.nameGoal,
-    this.points = "",
-    this.image = "assets/images/Task.png",
-    required this.id,
-  });
+  Task(
+      {required this.name,
+      required this.goal,
+      required this.nameGoal,
+      this.points = "",
+      this.image = "assets/images/Task.png"});
+
+  Task.id(
+      {this.id,
+      required this.name,
+      required this.goal,
+      required this.nameGoal,
+      this.points = "",
+      this.image = "assets/images/Task.png"});
 
   void incrementCount() {
     if (count < goal) {
