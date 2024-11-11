@@ -20,11 +20,9 @@ class HomeScreen extends StatelessWidget {
       children: [
         HomeHeader(screenHeight: screenHeight, userController: userController),
         Expanded(
-          // Usa Expanded para ajustar el contenido restante
           child: Obx(() {
-            final tasks = dateController.tasksByDayAndMonth[
-                    '${dateController.selectedMonth.value}-${dateController.selectedDay.value}'] ??
-                [];
+            // Llama a getTasksForToday para obtener las tareas del día directamente de la base de datos
+            final tasks = dateController.getTasksForSelectedDay();
 
             return ListView.builder(
               itemCount: tasks.length,

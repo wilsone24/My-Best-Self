@@ -27,56 +27,37 @@ class DateTaskController extends GetxController {
     'December'
   ];
 
-  // Función para obtener la cantidad de días en un mes.
+  // Función para obtener la cantidad de días en un mes
   List<int> generateDaysOfMonth(int month, int year) {
     int lastDay = DateTime(year, month + 1, 0).day;
     return List<int>.generate(lastDay, (index) => index + 1);
   }
 
-  // Función para agregar una tarea al día seleccionado.
-  void addTaskForSelectedDay(taskName, goal, nameGoal, image, id) {
-    // Fecha inicial (día y mes seleccionados)
-    DateTime startDate =
+  // Función para obtener tareas de la fecha seleccionada desde Hive
+  List<DataDb> getTasksForSelectedDay() {
+    String key = '${selectedMonth.value}-${selectedDay.value}';
+    return taskBox.values.where((task) {
+      return '${task.date.month}-${task.date.day}' == key;
+    }).toList();
+  }
+
+  // Función para agregar una tarea en Hive para la fecha seleccionada
+  void addTaskForSelectedDay(
+      String taskName, String goal, String nameGoal, String image, int id) {
+    DateTime selectedDate =
         DateTime(DateTime.now().year, selectedMonth.value, selectedDay.value);
 
-    // Fecha final (último día del año)
-    DateTime endDate = DateTime(DateTime.now().year, 12, 31);
+    DataDb newTask = DataDb(
+      id: id,
+      name: taskName,
+      goal: int.tryParse(goal) ?? 0,
+      nameGoal: nameGoal,
+      points: "${int.parse(goal) * 100}",
+      image: image,
+      date: selectedDate,
+    );
 
-    // Recorre desde el día seleccionado hasta el último día del año
-    for (DateTime currentDate = startDate;
-        currentDate.isBefore(endDate) || currentDate.isAtSameMomentAs(endDate);
-        currentDate = currentDate.add(const Duration(days: 1))) {
-      String key = '${currentDate.month}-${currentDate.day}';
-      if (!tasksByDayAndMonth.containsKey(key)) {
-        tasksByDayAndMonth[key] = [];
-      }
-
-      Task newTask = Task.id(
-        name: taskName,
-        goal: int.tryParse(goal) ?? 0,
-        nameGoal: nameGoal,
-        image: image,
-        points: "${int.parse(goal) * 100}",
-        id: id,
-      );
-
-      tasksByDayAndMonth[key]!.add(newTask);
-
-      // Crear y guardar la instancia de DataDb en Hive
-      DataDb newData = DataDb(
-        id: id,
-        name: taskName,
-        goal: int.tryParse(goal) ?? 0,
-        nameGoal: nameGoal,
-        points: "${int.parse(goal) * 100}",
-        image: image,
-        date: currentDate,
-      );
-
-      taskBox.add(newData); // Guardar la tarea en Hive
-    }
-
-    tasksByDayAndMonth.refresh();
+    taskBox.add(newTask);
   }
 
   void nextMonth() {
@@ -85,7 +66,7 @@ class DateTaskController extends GetxController {
     } else {
       selectedMonth.value = 1;
     }
-    selectedDay.value = 1; // Reiniciar al primer día del nuevo mes.
+    selectedDay.value = 1;
   }
 
   void previousMonth() {
@@ -94,9 +75,10 @@ class DateTaskController extends GetxController {
     } else {
       selectedMonth.value = 12;
     }
-    selectedDay.value = 1; // Reiniciar al primer día del nuevo mes.
+    selectedDay.value = 1;
   }
 
+  // Función para eliminar una tarea en Hive
   void removeTask(int taskId) {
     // Fecha inicial (día y mes seleccionados)
     DateTime startDate =
@@ -127,13 +109,14 @@ class DateTaskController extends GetxController {
     final taskToRemove = taskBox.values.firstWhere(
       (task) => task.id == taskId,
       orElse: () => DataDb(
-          id: -1,
-          name: '',
-          goal: 0,
-          nameGoal: '',
-          points: '',
-          image: '',
-          date: DateTime.now()),
+        id: -1,
+        name: '',
+        goal: 0,
+        nameGoal: '',
+        points: '',
+        image: '',
+        date: DateTime.now(),
+      ),
     );
 
     // Solo eliminar si se encontró una coincidencia válida en Hive
@@ -179,28 +162,17 @@ class DateTaskController extends GetxController {
   int calculateCompletedPoints() {
     int points = 0;
 
-    // Recorre cada entrada en el mapa tasksByDayAndMonth
-    for (var entry in tasksByDayAndMonth.entries) {
-      List<Task> tasksOnDate = entry.value;
-
-      // Recorre cada tarea en la lista
-      for (var task in tasksOnDate) {
-        if (task.isCompleted.value) {
-          points += int.parse(task.points);
-        }
-      }
-    }
-
-    // Verificar en Hive para sincronización adicional
-    for (var taskInDb in taskBox.values) {
-      if (taskInDb.isCompleted.value) {
-        points += int.parse(taskInDb.points);
+    // Recorre cada tarea en la base de datos
+    for (var task in taskBox.values) {
+      if (task.isCompleted.value) {
+        points += int.parse(task.points);
       }
     }
 
     return points;
   }
 
+  // Verifica si hay tareas incompletas del día anterior y muestra alerta
   void checkNegativeStreak() {
     // Obtener la fecha del día anterior
     DateTime previousDate = DateTime(
@@ -225,8 +197,7 @@ class DateTaskController extends GetxController {
           !task.isCompleted.value,
     );
 
-    // Mostrar la alerta si hay tareas incompletas en memoria o en Hive
-    if (hasIncompleteTasksInMemory || hasIncompleteTasksInHive) {
+    if (hasIncompleteTasksInHive) {
       Get.snackbar(
         "Negative Streak Alert",
         "You have incomplete tasks from yesterday!",

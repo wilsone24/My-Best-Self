@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:my_best_self/domain/entities/task.dart';
+import 'package:my_best_self/data/models/data_db.dart';
+// import 'package:my_best_self/domain/entities/task.dart';
 import 'package:my_best_self/presentation/controllers/date_task_controller.dart';
-import 'package:my_best_self/core/utils/colors.dart'; // Asegúrate de importar GetX
+import 'package:my_best_self/core/utils/colors.dart';
 
 class HabitTask extends StatelessWidget {
   const HabitTask({
@@ -11,8 +12,8 @@ class HabitTask extends StatelessWidget {
     required this.index,
   });
 
-  final Task task; // Recibe la tarea.
-  final int index; // Índice de la tarea en la lista.
+  final DataDb task;
+  final int index;
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +27,6 @@ class HabitTask extends StatelessWidget {
         bottom: screenHeight * 0.025,
       ),
       child: Obx(() {
-        // Verifica si la tarea está completa
         return AnimatedContainer(
           duration: const Duration(
               milliseconds: 500), // Animación para cambio de color
@@ -61,7 +61,6 @@ class HabitTask extends StatelessWidget {
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          // Texto de la tarea con tachado si está completada
                           Text(
                             task.name,
                             style: TextStyle(
@@ -129,7 +128,6 @@ class HabitTask extends StatelessWidget {
                       Row(
                         children: [
                           IconButton(
-                            // Botón para incrementar el contador
                             icon: const Icon(
                               Icons.add,
                               color: primaryColor,
@@ -140,7 +138,6 @@ class HabitTask extends StatelessWidget {
                             },
                           ),
                           IconButton(
-                            // Botón para eliminar la tarea
                             icon: const Icon(
                               Icons.delete_outline_rounded,
                               color: primaryColor,
