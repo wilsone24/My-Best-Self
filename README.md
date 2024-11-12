@@ -16,8 +16,10 @@ An app designed to help you become the best version of yourself.
 
 - 🎯 Personal goal setting
 - 📊 Habit tracking
-- 🔔 Progress notifications
+- 🔔 Progress rewards
 - 🎨 Modern and user-friendly interface
+- 💾 Local storage for data persistence
+- 🏆 Achievement system to motivate progress
 
 ## 🛠 Installation
 
@@ -52,37 +54,43 @@ flutter run
 ## 📁 Project Structure
 
 ```
-my-flutter-project/
+my_best_self/
 ├── lib/                         # Application source code
 │   ├── core/                    # Core utilities and dependencies
-│   │   ├── utils/               # Helper utilities and functions
-│   │   └── dependency_injection.dart  # Dependency injection setup
-│   ├── data/                    # Data layer (models, repositories)
-│   │   ├── models/              # Data models
-│   │   │   └── task.dart        # Task model
-│   │   └── repositories/        # Data repositories
-│   ├── domain/                  # Domain layer (business logic)
-│   │   ├── entities/            # Business entities
-│   │   ├── repositories/        # Abstract repositories
-│   │   └── usecases/            # Application use cases
-│   ├── presentation/            # Presentation layer (UI)
+│   │   ├── utils/               # Helper utilities and constants, e.g., color variables
+│   │   │   └── colors.dart      # Color variables used across the app
+│   │   └── dependency_injection/ # Dependency injection setup
+│   ├── data/                    # Data layer (data sources, domain logic)
+│   │   ├── datasources/         # Data sources (e.g., API, local storage)
+│   │   │   └── local/           # Local data sources
+│   │   ├── domain/              # Domain logic and business rules
+│   │   │   ├── entities/        # Business entities
+│   │   │   ├── repositories/    # Repository interfaces (abstractions)
+│   │   │   └── use_cases/       # Application use cases
+│   └── presentation/            # Presentation layer (UI)
 │   │   ├── controllers/         # State management controllers
 │   │   ├── navbar/              # Navigation bar components
 │   │   ├── screens/             # Application screens
 │   │   ├── views/               # Views for different sections
 │   │   └── widgets/             # Reusable UI components
 │   └── routes/                  # App route definitions
-├── main.dart                    # Application entry point
+└── main.dart                    # Application entry point
+
 ```
 
 ## 🔧 Dependencies
 
 This project uses the following key dependencies:
 
+- [flutter](https://pub.dev/packages/flutter): sdk: flutter
+- [hive](https://pub.dev/packages/hive): ^2.0.0
+- [loggy](https://pub.dev/packages/loggy): ^2.0.3
+- [path_provider](https://pub.dev/packages/path_provider): ^2.1.4
+- [hive_flutter](https://pub.dev/packages/hive_flutter): ^1.0.0
+- [cupertino_icons](https://pub.dev/packages/cupertino_icons): ^1.0.8
 - [get](https://pub.dev/packages/get): ^4.6.6
 - [intl](https://pub.dev/packages/intl): ^0.19.0
 - [percent_indicator](https://pub.dev/packages/percent_indicator): ^4.2.3
-- [cupertino_icons](https://pub.dev/packages/cupertino_icons): ^1.0.8
 
 For a full list of dependencies, please check the `pubspec.yaml` file.
 
