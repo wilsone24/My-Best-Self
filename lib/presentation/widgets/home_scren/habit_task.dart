@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:my_best_self/data/models/task.dart';
+import 'package:my_best_self/data/domain/entities/task.dart';
 import 'package:my_best_self/presentation/controllers/date_task_controller.dart';
 import 'package:my_best_self/core/utils/colors.dart'; // Asegúrate de importar GetX
 
@@ -19,20 +19,18 @@ class HabitTask extends StatelessWidget {
     final DateTaskController datetaskcontroller = Get.find();
     double screenHeight = MediaQuery.of(context).size.height;
     return Padding(
-      padding: EdgeInsets.only(
-        top: 0,
-        left: screenHeight * 0.038,
-        right: screenHeight * 0.038,
-        bottom: screenHeight * 0.025,
-      ),
-      child: Obx(() {
-        // Verifica si la tarea está completa
-        return AnimatedContainer(
+        padding: EdgeInsets.only(
+          top: 0,
+          left: screenHeight * 0.038,
+          right: screenHeight * 0.038,
+          bottom: screenHeight * 0.025,
+        ),
+        child: AnimatedContainer(
           duration: const Duration(
               milliseconds: 500), // Animación para cambio de color
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(15),
-              color: task.isCompleted.value
+              color: task.isCompleted
                   ? const Color.fromARGB(
                       255, 243, 243, 243) // Color cuando la tarea está completa
                   : Colors.white,
@@ -66,11 +64,11 @@ class HabitTask extends StatelessWidget {
                             task.name,
                             style: TextStyle(
                                 fontSize: 17,
-                                decoration: task.isCompleted.value
+                                decoration: task.isCompleted
                                     ? TextDecoration
                                         .lineThrough // Tachar el texto si está completa
                                     : TextDecoration.none,
-                                color: task.isCompleted.value
+                                color: task.isCompleted
                                     ? Colors
                                         .black // Color gris si está completa
                                     : Colors.black,
@@ -78,19 +76,17 @@ class HabitTask extends StatelessWidget {
                                     .bold // Color normal si no está completa
                                 ),
                           ),
-                          Obx(
-                            () => Text(
-                              "${task.count.value} / ${task.goal} ${task.nameGoal}",
-                              style: TextStyle(
-                                fontSize: 16,
-                                decoration: task.isCompleted.value
-                                    ? TextDecoration
-                                        .lineThrough // Tachar si está completa
-                                    : TextDecoration.none,
-                                color: task.isCompleted.value
-                                    ? Colors.grey
-                                    : dayTextCardColor,
-                              ),
+                          Text(
+                            "${task.count} / ${task.goal} ${task.nameGoal}",
+                            style: TextStyle(
+                              fontSize: 16,
+                              decoration: task.isCompleted
+                                  ? TextDecoration
+                                      .lineThrough // Tachar si está completa
+                                  : TextDecoration.none,
+                              color: task.isCompleted
+                                  ? Colors.grey
+                                  : dayTextCardColor,
                             ),
                           ),
                         ],
@@ -99,7 +95,7 @@ class HabitTask extends StatelessWidget {
                   ),
                   Column(
                     children: [
-                      if (task.isCompleted.value)
+                      if (task.isCompleted)
                         Container(
                           decoration: BoxDecoration(
                             gradient: const LinearGradient(
@@ -136,7 +132,7 @@ class HabitTask extends StatelessWidget {
                             ),
                             onPressed: () {
                               datetaskcontroller.incrementTaskCount(
-                                  index); // Incrementa el contador.
+                                  task); // Incrementa el contador.
                             },
                           ),
                           IconButton(
@@ -158,19 +154,16 @@ class HabitTask extends StatelessWidget {
               ),
               const SizedBox(
                   height: 10), // Espacio antes de la barra de progreso.
-              Obx(() {
-                double progress =
-                    task.count.value / task.goal; // Calcula el progreso.
-                return LinearProgressIndicator(
-                  value: progress, // Valor de progreso entre 0 y 1.
-                  backgroundColor: Colors.grey.shade300, // Color de fondo.
-                  color: primaryColor, // Color de la barra de progreso.
-                );
-              }),
+
+              // Calcula el progreso.
+              LinearProgressIndicator(
+                value: task.count / task.goal, // Valor de progreso entre 0 y 1.
+                backgroundColor: Colors.grey.shade300, // Color de fondo.
+                color: primaryColor, // Color de la barra de progreso.
+              )
+              // Espacio antes de la barra de progreso.
             ],
           ),
-        );
-      }),
-    );
+        ));
   }
 }

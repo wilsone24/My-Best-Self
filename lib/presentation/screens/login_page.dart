@@ -62,7 +62,8 @@ class LoginPage extends StatelessWidget {
                     userController.setUserName(textController.text);
                     Get.toNamed('/mainpage/');
                   }
-                }),
+              
+                },color: primaryColor,),
           ],
         ),
       ),

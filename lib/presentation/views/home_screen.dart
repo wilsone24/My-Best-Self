@@ -10,7 +10,6 @@ class HomeScreen extends StatelessWidget {
   final DateTaskController dateController = Get.find();
 
   HomeScreen({super.key});
-
   @override
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;

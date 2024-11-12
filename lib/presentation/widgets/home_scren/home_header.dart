@@ -9,7 +9,6 @@ class HomeHeader extends StatelessWidget {
     required this.screenHeight,
     required this.userController,
   }) {
-    controller.selectedDay.value = DateTime.now().day;
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _scrollToCurrentDay();
     });
@@ -21,8 +20,8 @@ class HomeHeader extends StatelessWidget {
   final ScrollController _scrollController = ScrollController();
 
   void _scrollToCurrentDay() {
-    final dayIndex = DateTime.now().day - 1;
-    final offset = dayIndex * (screenHeight * 0.085 + 10);
+    final dayIndex = controller.selectedDay.value - 2;
+    final offset = (dayIndex * (screenHeight * 0.085 + 10)).toDouble();
     _scrollController.animateTo(
       offset,
       duration: const Duration(milliseconds: 300),
@@ -86,7 +85,8 @@ class HomeHeader extends StatelessWidget {
                           Text(
                             '${controller.months[controller.selectedMonth.value - 1]} ${DateTime.now().year}',
                             style: TextStyle(
-                              fontSize: screenHeight * 0.0150, // Ajuste dinámico
+                              fontSize:
+                                  screenHeight * 0.0150, // Ajuste dinámico
                               color: const Color(0xFFADA4A5),
                             ),
                           ),

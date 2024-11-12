@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:my_best_self/core/utils/colors.dart';
 import 'package:my_best_self/presentation/controllers/date_task_controller.dart';
 import 'package:my_best_self/presentation/controllers/id_controller.dart';
 import 'package:my_best_self/presentation/widgets/buttons/custom_button.dart';
@@ -121,6 +122,7 @@ class QuanTaskPage extends StatelessWidget {
                       }
                     },
                     text: "Add Todo",
+                    color: primaryColor,
                   ),
                 ],
               ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:my_best_self/core/utils/colors.dart';
 import 'package:my_best_self/presentation/controllers/date_controller.dart';
 import 'package:my_best_self/presentation/controllers/date_task_controller.dart';
 import 'package:my_best_self/presentation/controllers/user_controller.dart';
@@ -42,11 +43,25 @@ class ProfileScreen extends StatelessWidget {
           ),
         ),
         SafeArea(
-          child: CustomButton(
-            text: "Logout",
-            onPressed: () {
-              Get.toNamed('/loginpage/');
-            },
+          child: Column(
+            children: [
+              CustomButton(
+                text: "Logout",
+                onPressed: () {
+                  Get.toNamed('/loginpage/');
+                },
+                color: primaryColor,
+              ),
+              SizedBox(height: screenHeight * 0.02),
+              CustomButton(
+                text: "Erase data",
+                onPressed: () {
+                  dateTaskController.removeAll();
+                  Get.toNamed('/loginpage/');
+                },
+                color: const Color.fromARGB(255, 157, 41, 51),
+              )
+            ],
           ),
         ),
       ],

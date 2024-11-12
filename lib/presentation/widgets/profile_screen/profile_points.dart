@@ -59,7 +59,7 @@ class ProfilePoints extends StatelessWidget {
                   "${dateTaskController.calculateCompletedPoints()}",
                   style: TextStyle(
                       fontWeight: FontWeight.bold,
-                      fontSize: screenHeight * 0.025,
+                      fontSize: screenHeight * 0.020,
                       color: primaryColor),
                 ))
           ],

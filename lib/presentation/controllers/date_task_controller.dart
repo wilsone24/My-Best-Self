@@ -1,12 +1,15 @@
 import 'package:get/get.dart';
-import 'package:my_best_self/data/models/task.dart';
+import 'package:loggy/loggy.dart';
+import 'package:my_best_self/data/domain/entities/task.dart';
+import 'package:my_best_self/data/domain/use_case/todo_use_case.dart';
 
 class DateTaskController extends GetxController {
   var selectedMonth = DateTime.now().month.obs;
   var selectedDay = DateTime.now().day.obs;
-
   var tasksByDayAndMonth = <String, List<Task>>{}.obs;
-
+  DateTaskController() {
+    getAllTodos();
+  }
   List<String> months = [
     'January',
     'February',
@@ -21,6 +24,33 @@ class DateTaskController extends GetxController {
     'November',
     'December'
   ];
+  TodoUseCase todoUseCase = Get.find();
+
+  Future<void> getAllTodos() async {
+    logInfo("userController -> getAllUsers");
+
+    // Realiza la llamada para obtener los datos, pero sin modificar tasksByDayAndMonth directamente
+    var list = await todoUseCase.getAllTodos();
+
+    // Usa un mapa temporal para almacenar la nueva estructura de datos
+    var tempTasksByDayAndMonth = <String, List<Task>>{};
+
+    // Procesa la lista y almacena en el mapa temporal
+    for (var task in list) {
+      String key = task.date;
+      if (!tempTasksByDayAndMonth.containsKey(key)) {
+        tempTasksByDayAndMonth[key] = [];
+      }
+      tempTasksByDayAndMonth[key]?.add(task);
+    }
+
+    // Actualiza tasksByDayAndMonth con la nueva información
+    tasksByDayAndMonth.clear();
+    tasksByDayAndMonth.addAll(tempTasksByDayAndMonth);
+
+    // Actualiza la vista al final
+    tasksByDayAndMonth.refresh();
+  }
 
   // Función para obtener la cantidad de días en un mes.
   List<int> generateDaysOfMonth(int month, int year) {
@@ -28,23 +58,19 @@ class DateTaskController extends GetxController {
     return List<int>.generate(lastDay, (index) => index + 1);
   }
 
-  // Función para agregar una tarea al día seleccionado.
-  void addTaskForSelectedDay(taskName, goal, nameGoal, image, id) {
-    // Fecha inicial (día y mes seleccionados)
+  void removeAll() async {
+    await todoUseCase.deleteAll();
+    await getAllTodos();
+  }
+
+  void addTaskForSelectedDay(taskName, goal, nameGoal, image, id) async {
     DateTime startDate =
         DateTime(DateTime.now().year, selectedMonth.value, selectedDay.value);
-
-    // Fecha final (último día del año)
     DateTime endDate = DateTime(DateTime.now().year, 12, 31);
-
-    // Recorre desde el día seleccionado hasta el último día del año
     for (DateTime currentDate = startDate;
         currentDate.isBefore(endDate) || currentDate.isAtSameMomentAs(endDate);
         currentDate = currentDate.add(const Duration(days: 1))) {
       String key = '${currentDate.month}-${currentDate.day}';
-      if (!tasksByDayAndMonth.containsKey(key)) {
-        tasksByDayAndMonth[key] = [];
-      }
 
       Task newTask = Task(
           name: taskName,
@@ -52,11 +78,13 @@ class DateTaskController extends GetxController {
           nameGoal: nameGoal,
           image: image,
           points: "${int.parse(goal) * 100}",
-          id: id);
-
-      tasksByDayAndMonth[key]!.add(newTask);
+          id: id,
+          count: 0,
+          isCompleted: false,
+          date: key);
+      await todoUseCase.addTodo(newTask);
     }
-
+    await getAllTodos();
     tasksByDayAndMonth.refresh();
   }
 
@@ -78,8 +106,7 @@ class DateTaskController extends GetxController {
     selectedDay.value = 1; // Reiniciar al primer día del nuevo mes.
   }
 
-  void removeTask(int taskId) {
-    // Fecha inicial (día y mes seleccionados)
+  void removeTask(int taskId) async {
     DateTime startDate =
         DateTime(DateTime.now().year, selectedMonth.value, selectedDay.value);
 
@@ -91,29 +118,21 @@ class DateTaskController extends GetxController {
         currentDate.isBefore(endDate) || currentDate.isAtSameMomentAs(endDate);
         currentDate = currentDate.add(const Duration(days: 1))) {
       String key = '${currentDate.month}-${currentDate.day}';
-
-      // Verifica si hay tareas en ese día
       if (tasksByDayAndMonth.containsKey(key)) {
-        // Filtra las tareas que no tienen el id que queremos eliminar
-        tasksByDayAndMonth[key]?.removeWhere((task) => task.id == taskId);
-
-        // Si no quedan tareas en ese día, eliminar la clave del mapa
-        if (tasksByDayAndMonth[key]?.isEmpty ?? true) {
-          tasksByDayAndMonth.remove(key);
+        final task =
+            tasksByDayAndMonth[key]?.firstWhere((task) => task.id == taskId);
+        if (task != null) {
+          await todoUseCase.removeItem(task);
         }
       }
     }
-
-    tasksByDayAndMonth.refresh();
+    await getAllTodos();
   }
 
-  void incrementTaskCount(int index) {
-    String key = '${selectedMonth.value}-${selectedDay.value}';
-    if (tasksByDayAndMonth.containsKey(key)) {
-      tasksByDayAndMonth["${selectedMonth.value}-${selectedDay.value}"]?[index]
-          .incrementCount();
-    }
-    tasksByDayAndMonth.refresh();
+  void incrementTaskCount(Task task) async {
+    task.incrementCount();
+    await todoUseCase.updateTodo(task);
+    await getAllTodos();
   }
 
   int calculateCompletedPoints() {
@@ -125,7 +144,7 @@ class DateTaskController extends GetxController {
 
       // Recorre cada tarea en la lista
       for (var task in tasksOnDate) {
-        if (task.isCompleted.value) {
+        if (task.isCompleted) {
           points += int.parse(task.points);
         }
       }
@@ -144,8 +163,7 @@ class DateTaskController extends GetxController {
     // Verificar si hay tareas para el día anterior
     if (tasksByDayAndMonth.containsKey(previousKey)) {
       List<Task> previousTasks = tasksByDayAndMonth[previousKey]!;
-      bool hasIncompleteTasks =
-          previousTasks.any((task) => !task.isCompleted.value);
+      bool hasIncompleteTasks = previousTasks.any((task) => !task.isCompleted);
       if (hasIncompleteTasks) {
         Get.snackbar(
           "Negative Streak Alert",
