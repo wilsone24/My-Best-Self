@@ -45,6 +45,7 @@ class CustomBottomNavBar extends StatelessWidget {
     final bool isSelected = selectedIndex == index;
     final Color color = isSelected ? primaryColor : Colors.grey;
     return GestureDetector(
+      key: Key('navItem_$label'), // Clave dinámica basada en el label
       onTap: () => onItemTapped(index),
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 300),
@@ -111,6 +112,7 @@ class CustomFloatingActionButton extends StatelessWidget {
       margin: const EdgeInsets.only(
           top: 30), // Alineación con la barra de navegación
       child: FloatingActionButton(
+        key: const Key('newTask'),
         onPressed: onPressed,
         elevation: 8,
         backgroundColor: Colors.transparent, // Fondo transparente
@@ -150,7 +152,17 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: Text('Page content for index $_selectedIndex'),
+        child: _selectedIndex == 1
+            ? Container(
+                key: const Key('pagePoints'),
+                child: const Text('Page content for Points'),
+              )
+            : _selectedIndex == 2
+                ? Container(
+                    key: const Key('pageProfile'), // Clave asignada aquí
+                    child: const Text('Page content for Profile'),
+                  )
+                : Text('Page content for index $_selectedIndex'),
       ),
       bottomNavigationBar: CustomBottomNavBar(
         selectedIndex: _selectedIndex,

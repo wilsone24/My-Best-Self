@@ -125,6 +125,7 @@ class HabitTask extends StatelessWidget {
                       Row(
                         children: [
                           IconButton(
+                            key: const Key('addTask'),
                             // Botón para incrementar el contador
                             icon: const Icon(
                               Icons.add,

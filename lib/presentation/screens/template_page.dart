@@ -134,6 +134,9 @@ class PredeterminedTask extends StatelessWidget {
         },
         borderRadius: BorderRadius.circular(15),
         child: Container(
+          key: nameTask == "Boolean Task"
+              ? const Key('booleanTask')
+              : null, // Asignar clave solo a "Boolean Task"
           height: screenHeight * 0.12,
           width: double.infinity,
           decoration: BoxDecoration(

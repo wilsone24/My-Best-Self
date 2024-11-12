@@ -37,6 +37,7 @@ class BoolTaskPage extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20),
                     child: TextField(
+                      key: const Key("nameTaskBoolean"),
                       controller: taskNameController,
                       decoration: const InputDecoration(
                         labelText: "Escribe el nombre de la tarea",
@@ -51,6 +52,7 @@ class BoolTaskPage extends StatelessWidget {
                       children: [
                         Expanded(
                           child: TextField(
+                            key: const Key('nameGoal'),
                             controller: taskNameGoalController,
                             decoration: const InputDecoration(
                               labelText: "Name Goal",
@@ -63,6 +65,7 @@ class BoolTaskPage extends StatelessWidget {
                   ),
                   const SizedBox(height: 25),
                   CustomButton(
+                    key: const Key('CreateTask'),
                     onPressed: () {
                       String taskName = taskNameController.text.trim();
                       String goal = "1";

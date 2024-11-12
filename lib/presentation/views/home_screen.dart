@@ -6,10 +6,10 @@ import 'package:my_best_self/presentation/widgets/home_scren/home_header.dart';
 import 'package:my_best_self/presentation/widgets/home_scren/habit_task.dart';
 
 class HomeScreen extends StatelessWidget {
+  HomeScreen({Key? key}) : super(key: const Key('Homepage'));
   final UserController userController = Get.find();
   final DateTaskController dateController = Get.find();
 
-  HomeScreen({super.key});
   @override
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;

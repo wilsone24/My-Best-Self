@@ -5,11 +5,11 @@ import 'package:my_best_self/core/utils/colors.dart';
 import 'package:my_best_self/presentation/widgets/buttons/custom_button.dart';
 
 class LoginPage extends StatelessWidget {
+  // ignore: use_super_parameters
+  LoginPage({Key? key}) : super(key: const Key('LoginPage'));
   final UserController userController = Get.find();
   final TextEditingController textController = TextEditingController();
   final RxString errorMessage = ''.obs;
-
-  LoginPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -29,6 +29,7 @@ class LoginPage extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(30.0),
               child: TextField(
+                key: const Key('LoginTextField'),
                 controller: textController,
                 decoration: InputDecoration(
                   filled: true,
@@ -48,6 +49,7 @@ class LoginPage extends StatelessWidget {
                   style: const TextStyle(color: Colors.red),
                 )),
             CustomButton(
+              key: const Key('LoginButton'),
               text: "Login",
               onPressed: () {
                 String name = textController.text.trim();
