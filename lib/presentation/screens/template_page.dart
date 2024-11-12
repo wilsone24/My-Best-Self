@@ -52,7 +52,6 @@ class TemplatePage extends StatelessWidget {
         "descriptionTask": "Matches",
         "page": "/quantaskpage",
       },
-      // Puedes agregar más tareas aquí
     ];
 
     return Scaffold(
@@ -60,28 +59,24 @@ class TemplatePage extends StatelessWidget {
         child: Column(
           children: [
             Padding(
-              padding: EdgeInsets.symmetric(
-                  vertical: screenHeight * 0.03), // Espacio vertical
+              padding: EdgeInsets.symmetric(vertical: screenHeight * 0.03),
               child: Text(
                 "Templates",
                 style: TextStyle(
-                  fontSize: screenHeight * 0.05, // Tamaño de texto grande
-                  fontWeight: FontWeight.bold, // Negrita
+                  fontSize: screenHeight * 0.05,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
             ),
             Expanded(
-              // Para expandir y ocupar el espacio restante
               child: ListView.builder(
-                itemCount: tasks.length +
-                    1, // Incrementamos el conteo por el padding extra
+                itemCount: tasks.length + 1,
                 itemBuilder: (context, index) {
                   if (index == tasks.length) {
                     return SizedBox(
                         height:
                             screenHeight * 0.05); // Espacio adicional al final
                   }
-                  // Obtener los datos de la tarea en la posición actual
                   final task = tasks[index];
                   return PredeterminedTask(
                     screenHeight: screenHeight,
@@ -137,8 +132,7 @@ class PredeterminedTask extends StatelessWidget {
             Get.toNamed(page, arguments: arguments);
           }
         },
-        borderRadius: BorderRadius.circular(
-            15), // Aplica el mismo borde redondeado al efecto de InkWell
+        borderRadius: BorderRadius.circular(15),
         child: Container(
           height: screenHeight * 0.12,
           width: double.infinity,

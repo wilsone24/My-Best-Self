@@ -28,14 +28,8 @@ class DateTaskController extends GetxController {
 
   Future<void> getAllTodos() async {
     logInfo("userController -> getAllUsers");
-
-    // Realiza la llamada para obtener los datos, pero sin modificar tasksByDayAndMonth directamente
     var list = await todoUseCase.getAllTodos();
-
-    // Usa un mapa temporal para almacenar la nueva estructura de datos
     var tempTasksByDayAndMonth = <String, List<Task>>{};
-
-    // Procesa la lista y almacena en el mapa temporal
     for (var task in list) {
       String key = task.date;
       if (!tempTasksByDayAndMonth.containsKey(key)) {
@@ -43,16 +37,11 @@ class DateTaskController extends GetxController {
       }
       tempTasksByDayAndMonth[key]?.add(task);
     }
-
-    // Actualiza tasksByDayAndMonth con la nueva información
     tasksByDayAndMonth.clear();
     tasksByDayAndMonth.addAll(tempTasksByDayAndMonth);
-
-    // Actualiza la vista al final
     tasksByDayAndMonth.refresh();
   }
 
-  // Función para obtener la cantidad de días en un mes.
   List<int> generateDaysOfMonth(int month, int year) {
     int lastDay = DateTime(year, month + 1, 0).day;
     return List<int>.generate(lastDay, (index) => index + 1);
@@ -94,7 +83,7 @@ class DateTaskController extends GetxController {
     } else {
       selectedMonth.value = 1;
     }
-    selectedDay.value = 1; // Reiniciar al primer día del nuevo mes.
+    selectedDay.value = 1;
   }
 
   void previousMonth() {
@@ -103,17 +92,13 @@ class DateTaskController extends GetxController {
     } else {
       selectedMonth.value = 12;
     }
-    selectedDay.value = 1; // Reiniciar al primer día del nuevo mes.
+    selectedDay.value = 1;
   }
 
   void removeTask(int taskId) async {
     DateTime startDate =
         DateTime(DateTime.now().year, selectedMonth.value, selectedDay.value);
-
-    // Fecha final (último día del año)
     DateTime endDate = DateTime(DateTime.now().year, 12, 31);
-
-    // Recorre desde el día seleccionado hasta el último día del año
     for (DateTime currentDate = startDate;
         currentDate.isBefore(endDate) || currentDate.isAtSameMomentAs(endDate);
         currentDate = currentDate.add(const Duration(days: 1))) {
@@ -138,11 +123,8 @@ class DateTaskController extends GetxController {
   int calculateCompletedPoints() {
     int points = 0;
 
-    // Recorre cada entrada en el mapa tasksByDayAndMonth
     for (var entry in tasksByDayAndMonth.entries) {
-      List<Task> tasksOnDate = entry.value; // Obtén la lista de tareas
-
-      // Recorre cada tarea en la lista
+      List<Task> tasksOnDate = entry.value;
       for (var task in tasksOnDate) {
         if (task.isCompleted) {
           points += int.parse(task.points);
@@ -153,14 +135,9 @@ class DateTaskController extends GetxController {
   }
 
   void checkNegativeStreak() {
-    // Obtener la fecha del día anterior
     DateTime previousDate = DateTime(
         DateTime.now().year, selectedMonth.value, selectedDay.value - 1);
-
-    // Generar la clave para el día anterior
     String previousKey = '${previousDate.month}-${previousDate.day}';
-
-    // Verificar si hay tareas para el día anterior
     if (tasksByDayAndMonth.containsKey(previousKey)) {
       List<Task> previousTasks = tasksByDayAndMonth[previousKey]!;
       bool hasIncompleteTasks = previousTasks.any((task) => !task.isCompleted);

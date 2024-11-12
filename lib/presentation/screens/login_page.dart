@@ -48,22 +48,23 @@ class LoginPage extends StatelessWidget {
                   style: const TextStyle(color: Colors.red),
                 )),
             CustomButton(
-                text: "Login",
-                onPressed: () {
-                  String name = textController.text.trim();
+              text: "Login",
+              onPressed: () {
+                String name = textController.text.trim();
 
-                  if (name.isEmpty) {
-                    errorMessage.value = 'Please, enter a name';
-                  } else if (!_isValidName(name)) {
-                    errorMessage.value = 'The name must only contain letters';
-                  } else {
-                    errorMessage.value = '';
-                    userController.setUserName(name);
-                    userController.setUserName(textController.text);
-                    Get.toNamed('/mainpage/');
-                  }
-              
-                },color: primaryColor,),
+                if (name.isEmpty) {
+                  errorMessage.value = 'Please, enter a name';
+                } else if (!_isValidName(name)) {
+                  errorMessage.value = 'The name must only contain letters';
+                } else {
+                  errorMessage.value = '';
+                  userController.setUserName(name);
+                  userController.setUserName(textController.text);
+                  Get.toNamed('/mainpage/');
+                }
+              },
+              color: primaryColor,
+            ),
           ],
         ),
       ),

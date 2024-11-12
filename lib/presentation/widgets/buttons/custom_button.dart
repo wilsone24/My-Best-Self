@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:my_best_self/core/utils/colors.dart';
 
 class CustomButton extends StatelessWidget {
   const CustomButton(
@@ -19,8 +18,8 @@ class CustomButton extends StatelessWidget {
           width: double.infinity,
           child: FilledButton(
               onPressed: onPressed,
-              style: ButtonStyle(
-                  backgroundColor: WidgetStateProperty.all(color)),
+              style:
+                  ButtonStyle(backgroundColor: WidgetStateProperty.all(color)),
               child: Padding(
                 padding: const EdgeInsetsDirectional.symmetric(vertical: 9),
                 child: Text(
