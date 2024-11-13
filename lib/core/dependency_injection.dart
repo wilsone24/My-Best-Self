@@ -10,9 +10,9 @@ class DependencyInjection {
   static void init() {
     Get.put(TodoRepository());
     Get.put(TodoUseCase());
+    Get.put(IdController());
     Get.put(DateController());
     Get.put(UserController());
     Get.put(DateTaskController());
-    Get.put(IdController());
   }
 }

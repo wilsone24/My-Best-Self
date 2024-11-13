@@ -2,11 +2,13 @@ import 'package:get/get.dart';
 import 'package:loggy/loggy.dart';
 import 'package:my_best_self/data/domain/entities/task.dart';
 import 'package:my_best_self/data/domain/use_case/todo_use_case.dart';
+import 'package:my_best_self/presentation/controllers/id_controller.dart';
 
 class DateTaskController extends GetxController {
   var selectedMonth = DateTime.now().month.obs;
   var selectedDay = DateTime.now().day.obs;
   var tasksByDayAndMonth = <String, List<Task>>{}.obs;
+
   DateTaskController() {
     getAllTodos();
   }
@@ -37,9 +39,7 @@ class DateTaskController extends GetxController {
       }
       tempTasksByDayAndMonth[key]?.add(task);
     }
-    tasksByDayAndMonth.clear();
-    tasksByDayAndMonth.addAll(tempTasksByDayAndMonth);
-    tasksByDayAndMonth.refresh();
+    tasksByDayAndMonth.value = tempTasksByDayAndMonth;
   }
 
   List<int> generateDaysOfMonth(int month, int year) {
