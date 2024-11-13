@@ -75,7 +75,9 @@ my_best_self/
 │   │   └── widgets/             # Reusable UI components
 │   └── routes/                  # App route definitions
 └── main.dart                    # Application entry point
-
+└── test/                        # Testing folder
+│   ├── integration_test/        # Integration tests (test the app as a whole, including interactions between multiple widgets)
+│   └── widget_test/             # Widget tests (test individual widgets and their behavior)
 ```
 
 ## 🔧 Dependencies
@@ -117,6 +119,8 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 LofoMarin - [@LofoMarin](https://github.com/LofoMarin)
 
 Wilsone24 - [@wilsone24](https://github.com/wilsone24)
+
+rtorresc - [@rtorresc](https://github.com/rtorresc)
 
 Project Link: [https://github.com/wilsone24/my-best-self](https://github.com/wilsone24/My-Best-Self)
 
